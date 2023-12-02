@@ -1,5 +1,6 @@
 api/.gitignore
 api/.env
+.vscode
 # Miscellaneous
 fyoona/*.class
 fyoona/*.log

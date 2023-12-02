@@ -114,9 +114,9 @@ router.post('/loginbuyer', async (req, res) => {
       return res.status(401).json('Wrong Credentials');
     }
 
-    if (!buyerUser.isActivated) {
-      return res.status(401).json('Account not activated. Check your email for activation instructions.');
-    }
+    // if (!buyerUser.isActivated) {
+    //   return res.status(401).json('Account not activated. Check your email for activation instructions.');
+    // }
  // Check if activation code is expired
  if (buyerUser.activationCodeExpires && buyerUser.activationCodeExpires < Date.now()) {
     return res.status(401).json('Activation code has expired. Request a new one.');
@@ -126,6 +126,8 @@ router.post('/loginbuyer', async (req, res) => {
       {
         id: buyerUser._id,
         isAdmin: buyerUser.isAdmin, // to be removed
+        isVendor: buyerUser.isVendor, // to be removed
+
       },
       process.env.JWT_SEC,
       { expiresIn: '2d' }

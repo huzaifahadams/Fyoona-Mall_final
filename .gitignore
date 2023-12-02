@@ -1,5 +1,4 @@
 api/.gitignore
-fyoona/
 api/.env
 # Miscellaneous
 fyoona/*.class
@@ -12,7 +11,9 @@ fyoona/.buildlog/
 fyoona/.history
 fyoona/.svn/
 fyoona/migrate_working_dir/
-
+fyoona/android
+fyoona/ios
+fyoona/build
 # IntelliJ related
 fyoona/*.iml
 fyoona/*.ipr
@@ -33,7 +34,7 @@ fyoona/.flutter-plugins-dependencies
 fyoona/.packages
 fyoona/.pub-cache/
 fyoona/.pub/
-fyoona//build/
+fyoona/build/
 
 # Symbolication related
 fyoona/app.*.symbols

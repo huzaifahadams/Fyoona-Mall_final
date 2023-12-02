@@ -1,0 +1,47 @@
+api/.gitignore
+fyoona/
+api/.env
+# Miscellaneous
+fyoona/*.class
+fyoona/*.log
+fyoona/*.pyc
+fyoona/*.swp
+fyoona/.DS_Store
+fyoona/.atom/
+fyoona/.buildlog/
+fyoona/.history
+fyoona/.svn/
+fyoona/migrate_working_dir/
+
+# IntelliJ related
+fyoona/*.iml
+fyoona/*.ipr
+fyoona/*.iws
+fyoona/.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+fyoona/**/ios/Flutter/.last_build_id
+fyoona/.dart_tool/
+fyoona/.flutter-plugins
+fyoona/.flutter-plugins-dependencies
+fyoona/.packages
+fyoona/.pub-cache/
+fyoona/.pub/
+fyoona//build/
+
+# Symbolication related
+fyoona/app.*.symbols
+
+# Obfuscation related
+fyoona/app.*.map.json
+
+# Android Studio will place build artifacts here
+fyoona//android/app/debug
+fyoona//android/app/profile
+fyoona//android/app/release

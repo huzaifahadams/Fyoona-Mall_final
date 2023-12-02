@@ -26,7 +26,7 @@ const verifyTokenAndAuthorization = (req, res, next) => {
   });
 };
 
-///admin
+//admin
 const verifyTokenAndAdmin = (req, res, next) => {
   verifyTokenBuyer(req, res, () => {
     if (req.user.isAdmin) {

@@ -141,4 +141,11 @@ router.post('/loginbuyer', async (req, res) => {
   }
 });
 
+
+// Logout buyer with JWT tokens
+router.post('/logoutbuyer', (req, res) => {
+  res.status(200).json({ message: 'Logout successful' });
+});
+
+
 module.exports = router;

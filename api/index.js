@@ -21,8 +21,8 @@ app.use("/api/auth",authRoute);
 app.use("/api/users",userRoute);
 
 
-app.listen( process.env.PORT || 3000, () => {
-    console.log(`server is running`)
+app.listen( process.env.PORT || 8000, "0.0.0.0", () => {
+    console.log(`connected  at port  `);
 })
 
 

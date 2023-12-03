@@ -1,10 +1,14 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyoona/buyers/views/auth/user_login.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../const/images.dart';
+import '../../../utils.dart';
+import 'services/auth_services.dart';
 
 class BuyersRegisterScreen extends StatefulWidget {
   const BuyersRegisterScreen({super.key});
@@ -14,32 +18,80 @@ class BuyersRegisterScreen extends StatefulWidget {
 }
 
 class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
+  final _signUpFormKey = GlobalKey<FormState>(); //form for signup
 
-  late String email;
-  late String fullName;
-  late String phoneNumber;
-  late String password;
   Uint8List? _image;
-  final _isLoading = false;
+  bool isLoading = false;
   bool _isPasswordVisible = false;
 
-  // late String _authController;
-  // seletGalleryImage() async {
-  //   Uint8List im = await _authController.pickProfileImage(ImageSource.gallery);
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordsController = TextEditingController();
+  final TextEditingController _fullnameController = TextEditingController();
+  final TextEditingController _phonenNumberController = TextEditingController();
 
-  //   setState(() {
-  //     _image = im;
-  //   });
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordsController.dispose();
+    _fullnameController.dispose();
+    _phonenNumberController.dispose();
+  }
 
-  // seletPickCameraImage() async {
-  //   Uint8List im = await _authController.pickProfileImage(ImageSource.camera);
+  void signUpUser() async {
+    setState(() {
+      isLoading = true;
+    });
 
-  //   setState(() {
-  //     _image = im;
-  //   });
-  // }
+    await Future.delayed(const Duration(milliseconds: 300), () async {
+      if (_signUpFormKey.currentState!.validate()) {
+        authService.signUpUser(
+          context: context,
+          jsonData: jsonEncode({
+            'email': _emailController.text.trim(),
+            'fullname': _fullnameController.text.trim(),
+            'password': _passwordsController.text.trim(),
+            'phonenumber': _phonenNumberController.text.trim(),
+            'userImg': _image != null ? base64Encode(_image!) : '',
+          }),
+          data: {
+            'email': _emailController.text,
+            'fullname': _fullnameController.text,
+            'password': _passwordsController.text,
+            'phonenumber': _phonenNumberController.text,
+            'userImg': _image != null ? base64Encode(_image!) : '',
+          },
+          onSuccess: () {
+            print('Signup successful. Navigating to login screen.');
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const BuyersLoginScreen(),
+              ),
+            );
+            showSnackBar(
+              context,
+              'Account created! And Verify Email has sent to your email',
+            );
+          },
+        );
+      } else {}
+    });
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  Future<void> selectGalleryImage() async {
+    Uint8List? im = await authService.pickProfileImage(ImageSource.gallery);
+
+    setState(() {
+      _image = im;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +102,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
         body: Center(
           child: SingleChildScrollView(
             child: Form(
-              key: _formKey,
+              key: _signUpFormKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -71,7 +123,9 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                         top: 5,
                         child: IconButton(
                           onPressed: () {
-                            // seletGalleryImage();
+                            if (_signUpFormKey.currentState!.validate()) {
+                              selectGalleryImage(); // Updated function call
+                            }
                           },
                           icon: const Center(
                             child: Icon(
@@ -86,16 +140,17 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.all(13.0),
                     child: TextFormField(
+                      controller: _emailController, // Set the controller
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please Email must not be empty';
+                          return 'Please enter an email';
                         } else {
                           return null;
                         }
                       },
                       onChanged: (value) {
-                        email = value;
+                        // No need to assign to email here
                       },
                       decoration: const InputDecoration(
                         labelText: 'Enter Email',
@@ -105,6 +160,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.all(13.0),
                     child: TextFormField(
+                      controller: _fullnameController, // Set the controller
                       keyboardType: TextInputType.name,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -114,7 +170,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                         }
                       },
                       onChanged: (value) {
-                        fullName = value;
+                        // No need to setState for fullname here
                       },
                       decoration: const InputDecoration(
                         labelText: 'Enter Full name',
@@ -124,6 +180,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.all(13.0),
                     child: TextFormField(
+                      controller: _phonenNumberController, // Set the controller
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -133,7 +190,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                         }
                       },
                       onChanged: (value) {
-                        phoneNumber = value;
+                        // No need to setState for phoneNumber here
                       },
                       decoration: const InputDecoration(
                         labelText: 'Enter Phone Number',
@@ -143,6 +200,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.all(13.0),
                     child: TextFormField(
+                      controller: _passwordsController, // Set the controller
                       obscureText: !_isPasswordVisible,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -152,7 +210,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                         }
                       },
                       onChanged: (value) {
-                        password = value;
+                        // No need to setState for password here
                       },
                       decoration: InputDecoration(
                         labelText: 'Password',
@@ -174,7 +232,9 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // _signupUser();
+                      if (_signUpFormKey.currentState!.validate()) {
+                        signUpUser();
+                      }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width - 40,
@@ -183,7 +243,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                           color: Colors.yellow.shade900,
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
-                          child: _isLoading
+                          child: isLoading
                               ? const CircularProgressIndicator(
                                   color: Colors.white,
                                 )

@@ -8,8 +8,7 @@ const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: process.env.EMAIL_PORT,
   secure: process.env.SMTP_security_mode,
-  
-//   === 'SSL',
+
   auth: {
     user: process.env.EMAIL,
     pass: process.env.EMAIL_PASSWORD,
@@ -20,10 +19,16 @@ const transporter = nodemailer.createTransport({
 // Register
 router.post('/registerbuyer', async (req, res) => {
   try {
-    const { fullname, email, password, phonenumber, userImg } = req.body;
+    console.log('Received request data:', req.body);
+
+    // Parse the JSON if it's a string
+    const userData = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+
+    // Destructure the values from the parsed JSON
+    const { fullname, email, password, phonenumber, userImg  } = req.body;
 
     // Check for empty inputs
-    if (!fullname || !email || !password || !phonenumber || !userImg) {
+    if (!fullname || !email || !password || !phonenumber ) {
       return res.status(400).json('All fields must be filled');
     }
 
@@ -54,17 +59,30 @@ router.post('/registerbuyer', async (req, res) => {
          // Save user with activation code and expiration time
     const expirationTime = Date.now() + 10 * 60 * 1000; // 10 minutes in milliseconds
    
-        const savedUser = await new BuyersUser({
+       
+        const { fullname, email, password, phonenumber, userImg } = req.body;
+
+        // ...
+        
+        const userObject = {
             fullname,
             email,
             password: encryptedPassword,
             phonenumber,
-            userImg,
             activationCode,
             activationCodeExpires: expirationTime,
             isActivated: false,
-          }).save();
+        };
+        
+        // Include userImg only if it is provided in the request body
+        if (userImg) {
+            userObject.userImg = userImg;
+        }
+        // console.log('Activation email sent:', info.response);
+        console.log('Received request data:', req.body);
 
+        const savedUser = await new BuyersUser(userObject).save();
+        
     // Send activation email
     const mailOptions = {
       from: `"${process.env.SENDERNAME}" <${process.env.EMAIL}>`,
@@ -93,7 +111,7 @@ router.post('/registerbuyer', async (req, res) => {
         return res.status(500).json('Failed to send activation email');
       }
       console.log('Activation email sent:', info.response);
-      res.status(201).json(savedUser);
+      // res.status(201).json(savedUser);
     });
     } catch (error) {
       console.error('Error creating user:', error);
@@ -105,6 +123,7 @@ router.post('/registerbuyer', async (req, res) => {
   }
 });
 
+
 // Login buyer
 router.post('/loginbuyer', async (req, res) => {
   try {
@@ -114,9 +133,9 @@ router.post('/loginbuyer', async (req, res) => {
       return res.status(401).json('Wrong Credentials');
     }
 
-    // if (!buyerUser.isActivated) {
-    //   return res.status(401).json('Account not activated. Check your email for activation instructions.');
-    // }
+    if (!buyerUser.isActivated) {
+      return res.status(401).json('Account not activated. Check your email for activation instructions.');
+    }
  // Check if activation code is expired
  if (buyerUser.activationCodeExpires && buyerUser.activationCodeExpires < Date.now()) {
     return res.status(401).json('Activation code has expired. Request a new one.');

@@ -1,0 +1,130 @@
+import 'dart:convert';
+
+void showErrorMessage(String message) {
+  // show the SnackBar using the message parameter
+}
+
+class Product {
+  final String productName;
+  final String productDescription;
+  final int quantity;
+  final List<String> imageUrList;
+  final String videoUrl;
+  final String category;
+  final double productPrice;
+  final String? id;
+  final DateTime? scheduleDate;
+  final bool? chargeShipping;
+  final double? shippingFee;
+  final String? brandName;
+  final List<String>? sizeList;
+  final List<String>? colorList;
+  final String vendorId;
+  final bool approved;
+  Product({
+    required this.productName,
+    required this.productDescription,
+    required this.quantity,
+    required this.imageUrList,
+    required this.videoUrl,
+    required this.category,
+    required this.productPrice,
+    this.id,
+    required this.scheduleDate,
+    this.chargeShipping,
+    this.shippingFee,
+    required this.brandName,
+    this.sizeList,
+    this.colorList,
+    required this.vendorId,
+    required this.approved,
+  });
+  factory Product.fromMap(Map<String, dynamic> map) {
+    return Product(
+      id: map['_id'] as String,
+      productName: map['productName'] as String,
+      productDescription: map['productDescription'] as String,
+      quantity: map['quantity'] as int,
+      // imageUrList: List<String>.from(map['imageUrList']),
+      imageUrList: List<String>.from(map['imageUrList'] as List<String>),
+
+      videoUrl: map['videoUrl'],
+      category: map['category'] as String,
+      productPrice: map['productPrice'].toDouble(),
+      scheduleDate: map['scheduleDate'] != null
+          ? DateTime.parse(map['scheduleDate'] as String)
+          : null,
+      chargeShipping: map['chargeShipping'] as bool?,
+      shippingFee: map['shippingFee']?.toDouble(),
+      brandName: map['brandName'] as String?,
+      sizeList: List<String>.from(map['sizeList'] as List<String>),
+      colorList: List<String>.from(map['colorList'] as List<String>),
+
+      vendorId: map['vendorId'] as String,
+      approved: map['approved'] as bool,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'productName': productName,
+      'productDescription': productDescription,
+      'quantity': quantity,
+      'imageUrList': imageUrList,
+      'videoUrl': videoUrl,
+      'category': category,
+      'productPrice': productPrice,
+      'scheduleDate': scheduleDate,
+      'chargeShipping': chargeShipping,
+      'shippingFee': shippingFee,
+      'brandName': brandName,
+      'sizeList': sizeList,
+      'colorList': colorList,
+      'vendorId': vendorId,
+      'approved': approved,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
+  factory Product.fromJson(String source) =>
+      Product.fromMap(json.decode(source) as Map<String, dynamic>);
+  Product copyWith({
+    String? id,
+    String? productName,
+    String? productDescription,
+    int? quantity,
+    List<String>? imageUrList,
+    String? videoUrl,
+    String? category,
+    double? productPrice,
+    DateTime? scheduleDate,
+    bool? chargeShipping,
+    double? shippingFee,
+    String? brandName,
+    List<String>? sizeList,
+    List<String>? colorList,
+    String? vendorId,
+    bool? approved,
+    // List<dynamic>? cart,
+  }) {
+    return Product(
+      id: id ?? this.id,
+      productName: productName ?? this.productName,
+      productDescription: productDescription ?? this.productDescription,
+      quantity: quantity ?? this.quantity,
+      imageUrList: imageUrList ?? this.imageUrList,
+      videoUrl: videoUrl ?? this.videoUrl,
+      category: category ?? this.category,
+      approved: approved ?? this.approved,
+      productPrice: productPrice ?? this.productPrice,
+      scheduleDate: scheduleDate ?? this.scheduleDate,
+      chargeShipping: chargeShipping ?? this.chargeShipping,
+      shippingFee: shippingFee ?? this.shippingFee,
+      brandName: brandName ?? this.brandName,
+      sizeList: sizeList ?? this.sizeList,
+      colorList: colorList ?? this.colorList,
+      vendorId: vendorId ?? this.vendorId,
+    );
+  }
+}

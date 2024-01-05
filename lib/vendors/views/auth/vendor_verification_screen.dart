@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'services/auth_services.dart';
+import 'package:fyoona/vendors/views/auth/services/vendor_auth_services.dart';
 
-class BuyersVerificationScreen extends StatefulWidget {
+class VendorVerificationScreen extends StatefulWidget {
   final String email;
 
-  const BuyersVerificationScreen({Key? key, required this.email})
+  const VendorVerificationScreen({Key? key, required this.email})
       : super(key: key);
 
   @override
-  BuyersVerificationScreenState createState() =>
-      BuyersVerificationScreenState();
+  VendorVerificationScreenState createState() =>
+      VendorVerificationScreenState();
 }
 
-class BuyersVerificationScreenState extends State<BuyersVerificationScreen> {
-  final AuthService authService = AuthService();
+class VendorVerificationScreenState extends State<VendorVerificationScreen> {
+  final AuthServiceVendor authServicez = AuthServiceVendor();
   final TextEditingController _verificationCodeController =
       TextEditingController();
 
@@ -47,7 +47,7 @@ class BuyersVerificationScreenState extends State<BuyersVerificationScreen> {
               onPressed: () {
                 // Add code to verify the entered code
                 // Call a function in AuthService to handle verification
-                authService.verifyCode(
+                authServicez.verifyCode(
                   context: context,
                   email: widget.email,
                   code: _verificationCodeController.text,
@@ -60,7 +60,7 @@ class BuyersVerificationScreenState extends State<BuyersVerificationScreen> {
               onPressed: () {
                 // Add code to resend the verification email
                 // Call a function in AuthService to handle resend
-                authService.resendVerificationEmail(context, widget.email);
+                authServicez.resendVerificationEmail(context, widget.email);
               },
               child: const Text('Resend Code'),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyoona/buyers/views/auth/user_login.dart';
+import 'package:fyoona/vendors/views/auth/forget_pass_vendor.dart';
 import 'package:fyoona/vendors/views/auth/services/vendor_auth_services.dart';
 import 'package:fyoona/vendors/views/auth/vendor_signup.dart';
 
@@ -176,7 +177,12 @@ class _VendorLoginScreenState extends State<VendorLoginScreen> {
                   Row(
                     children: [
                       TextButton(
-                        onPressed: () async {},
+                        onPressed: () async {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const ResetPasswordScreenVendor();
+                          }));
+                        },
                         child: const Text('Forgot Password?'),
                       ),
                     ],

@@ -4,21 +4,22 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fyoona/buyers/utils.dart';
-import 'package:fyoona/buyers/views/auth/user_login.dart';
+import 'package:fyoona/vendors/views/auth/vendor_login.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../buyers/error_handling.dart';
 import '../../../const/colors.dart';
 import '../../../global_variables.dart';
-import '../../error_handling.dart';
 
-class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key});
+class ResetPasswordScreenVendor extends StatefulWidget {
+  const ResetPasswordScreenVendor({super.key});
 
   @override
-  State<ResetPasswordScreen> createState() => ResetPasswordScreenState();
+  State<ResetPasswordScreenVendor> createState() =>
+      ResetPasswordScreenVendorState();
 }
 
-class ResetPasswordScreenState extends State<ResetPasswordScreen> {
+class ResetPasswordScreenVendorState extends State<ResetPasswordScreenVendor> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _isLoading = false;
@@ -29,7 +30,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
       final Map<String, String> requestBody = {'email': email};
 
       final http.Response res = await http.post(
-        Uri.parse('$uri/api/auth/reset-password'),
+        Uri.parse('$uri/api/vendorauth/reset-password'),
         body: jsonEncode(requestBody),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -47,7 +48,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const BuyersLoginScreen(),
+              builder: (context) => const VendorLoginScreen(),
             ),
           );
         },

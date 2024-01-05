@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:fyoona/vendors/models/vendor.dart';
 import 'package:fyoona/vendors/providers/vendor_provider.dart';
 import 'package:fyoona/vendors/views/auth/vendor_login.dart';
+import 'package:fyoona/vendors/views/auth/vendor_verification_screen.dart';
 import 'package:fyoona/vendors/views/landing_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -62,21 +63,6 @@ class AuthServiceVendor {
   //     return null;
   //   }
   // }
-
-// Add these methods in AuthService.dart
-  Future<void> verifyCode({
-    required BuildContext context,
-    required String email,
-    required String code,
-  }) async {
-    // Add logic to send the verification code to your backend and handle the response
-    // If the code is correct, update the user's activation status and navigate to the login screen
-  }
-
-  Future<void> resendVerificationEmail(
-      BuildContext context, String email) async {
-    // Add logic to resend the verification email to your backend and handle the response
-  }
 
   Future<Uint8List?> pickProfileImage(ImageSource source) async {
     final ImagePicker imagePicker = ImagePicker();
@@ -154,7 +140,7 @@ class AuthServiceVendor {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const VendorLoginScreen(),
+              builder: (context) => VendorVerificationScreen(email: email),
             ),
           );
         },
@@ -172,41 +158,27 @@ class AuthServiceVendor {
     }
   }
 
-  //get user  data
-  //login vendor
-  void signInUser({
-    required BuildContext context,
-    required String email,
-    required String password,
-  }) async {
+  // Resend verification email
+  Future<void> resendVerificationEmail(
+      BuildContext context, String email) async {
     try {
-      http.Response res = await http.post(
-        Uri.parse('$uri/api/vendorauth/loginvendor'),
-        body: jsonEncode({
-          'email': email,
-          'password': password,
-        }),
+      final Map<String, String> requestBody = {'email': email};
+
+      final http.Response res = await http.post(
+        Uri.parse('$uri/api/vendorauth/resend-verification-email'),
+        body: jsonEncode(requestBody),
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
+          'Content-Type': 'application/json; charset=UTF-8',
         },
       );
 
       httpErrorHandle(
         response: res,
         context: context,
-        onSuccess: () async {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          Provider.of<VendorProvider>(context, listen: false).setUser(res.body);
-          await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+        onSuccess: () {
           showSnackBar(
             context,
-            'Account Logged in',
-          );
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LandingScreen(),
-            ),
+            'Verification email resent successfully',
           );
         },
       );
@@ -216,9 +188,178 @@ class AuthServiceVendor {
       showSnackBar(context, "The request timed out. Please try again later.");
     } catch (e, stackTrace) {
       showSnackBar(context,
-          "An error occurred  while loggin in : ${e.toString()} \n Line number: ${stackTrace.toString().split('\n')[1]}");
+          "An error occurred while resending verification email: ${e.toString()} \n Line number: ${stackTrace.toString().split('\n')[1]}");
+    }
+  }
 
-      // "An error occurred while fetching products: ${e.toString()}");
+  // Verify email with code
+  Future<void> verifyCode({
+    required BuildContext context,
+    required String email,
+    required String code,
+  }) async {
+    try {
+      final Map<String, String> requestBody = {'email': email, 'code': code};
+
+      final http.Response res = await http.post(
+        Uri.parse('$uri/api/vendorauth/verify-email'),
+        body: jsonEncode(requestBody),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(
+            context,
+            'Email successfully verified',
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const VendorLoginScreen(),
+            ),
+          ); // Navigate to the login screen or perform any other actions as needed
+        },
+      );
+    } on SocketException {
+      showSnackBar(context, "Please check your internet connection.");
+    } on TimeoutException {
+      showSnackBar(context, "The request timed out. Please try again later.");
+    } catch (e, stackTrace) {
+      showSnackBar(context,
+          "An error occurred while verifying email: ${e.toString()} \n Line number: ${stackTrace.toString().split('\n')[1]}");
+    }
+  }
+
+  //get user  data
+  //login vendor
+  // void signInUser({
+  //   required BuildContext context,
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   try {
+  //     http.Response res = await http.post(
+  //       Uri.parse('$uri/api/vendorauth/loginvendor'),
+  //       body: jsonEncode({
+  //         'email': email,
+  //         'password': password,
+  //       }),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8'
+  //       },
+  //     );
+
+  //     httpErrorHandle(
+  //       response: res,
+  //       context: context,
+  //       onSuccess: () async {
+  //         SharedPreferences prefs = await SharedPreferences.getInstance();
+  //         Provider.of<VendorProvider>(context, listen: false).setUser(res.body);
+  //         await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+  //         showSnackBar(
+  //           context,
+  //           'Account Logged in',
+  //         );
+  //         Navigator.pushReplacement(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => LandingScreen(),
+  //           ),
+  //         );
+  //       },
+  //     );
+  //   } on SocketException {
+  //     showSnackBar(context, "Please check your internet connection.");
+  //   } on TimeoutException {
+  //     showSnackBar(context, "The request timed out. Please try again later.");
+  //   } catch (e, stackTrace) {
+  //     showSnackBar(context,
+  //         "An error occurred  while loggin in : ${e.toString()} \n Line number: ${stackTrace.toString().split('\n')[1]}");
+
+  //     // "An error occurred while fetching products: ${e.toString()}");
+  //   }
+  // }
+  void signInUser({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      AuthServiceVendor authServicez =
+          AuthServiceVendor(); // Create an instance of AuthService
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/vendorauth/loginvendor'),
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          var responseBody = jsonDecode(res.body);
+
+          // Check if the user is activated
+          var activationStatus = responseBody['isActivated'];
+          if (!activationStatus) {
+            // User is not activated, show a snackbar
+            showSnackBar(
+              context,
+              'Account not activated. Check your email for activation instructions.',
+            );
+
+            // Use authService to resend verification email
+            await authServicez.resendVerificationEmail(context, email);
+            showSnackBar(
+              context,
+              'Verification email resent successfully',
+            );
+
+            // Navigate to BuyersVerificationScreen
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => VendorVerificationScreen(email: email),
+              ),
+            );
+          } else {
+            // User is activated, proceed with the login
+            Provider.of<VendorProvider>(context, listen: false)
+                .setUser(res.body);
+            await prefs.setString('x-auth-token', responseBody['token']);
+            showSnackBar(
+              context,
+              'Account Logged in',
+            );
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LandingScreen(),
+              ),
+            );
+          }
+        },
+      );
+    } on SocketException {
+      showSnackBar(context, "Please check your internet connection.");
+    } on TimeoutException {
+      showSnackBar(context, "The request timed out. Please try again later.");
+    } catch (e, stackTrace) {
+      showSnackBar(
+        context,
+        "An error occurred while logging in: ${e.toString()} \n Line number: ${stackTrace.toString().split('\n')[1]}",
+      );
     }
   }
 

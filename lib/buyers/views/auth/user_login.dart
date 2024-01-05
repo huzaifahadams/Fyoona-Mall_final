@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyoona/buyers/views/auth/services/auth_services.dart';
 import 'package:fyoona/buyers/views/auth/user_signup.dart';
-import 'package:fyoona/const/images.dart';
+// import 'package:fyoona/const/images.dart';
 import 'package:fyoona/vendors/views/auth/vendor_login.dart';
 
 import 'forget_pass.dart';
@@ -144,45 +144,45 @@ class _BuyersLoginScreenState extends State<BuyersLoginScreen> {
                                 )),
                     ),
                   ),
-                  InkWell(
-                    onTap: () async {
-                      // Call the Google Sign-In method
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width - 40,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors
-                              .white, // Set the background color for the button
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                              color: Colors.grey), // Set the border color
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              googleIco,
-                              width: 50, // Adjust the width as needed
-                              height: 50, // Adjust the height as needed
-                            ),
-                            const SizedBox(width: 10),
+                  // InkWell(
+                  //   onTap: () async {
+                  //     // Call the Google Sign-In method
+                  //   },
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(10.0),
+                  //     child: Container(
+                  //       width: MediaQuery.of(context).size.width - 40,
+                  //       height: 50,
+                  //       decoration: BoxDecoration(
+                  //         color: Colors
+                  //             .white, // Set the background color for the button
+                  //         borderRadius: BorderRadius.circular(10),
+                  //         border: Border.all(
+                  //             color: Colors.grey), // Set the border color
+                  //       ),
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.center,
+                  //         children: [
+                  //           Image.asset(
+                  //             googleIco,
+                  //             width: 50, // Adjust the width as needed
+                  //             height: 50, // Adjust the height as needed
+                  //           ),
+                  //           const SizedBox(width: 10),
 
-                            const Text(
-                              'Sign in with Google',
-                              style: TextStyle(
-                                color: Colors.black, // Set the text color
-                                fontSize: 16, // Adjust the font size as needed
-                              ),
-                            ),
-                            // Add some space between the image and text
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  //           const Text(
+                  //             'Sign in with Google',
+                  //             style: TextStyle(
+                  //               color: Colors.black, // Set the text color
+                  //               fontSize: 16, // Adjust the font size as needed
+                  //             ),
+                  //           ),
+                  //           // Add some space between the image and text
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

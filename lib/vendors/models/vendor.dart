@@ -9,7 +9,7 @@ class Vendor {
   final String location;
   final String businessname;
   final String id;
-  final String vendorlogo;
+  final String? vendorlogo;
   final bool approved;
   final String type;
   Vendor(
@@ -20,7 +20,7 @@ class Vendor {
       required this.phonenumber,
       required this.token,
       required this.businessname,
-      required this.vendorlogo,
+      this.vendorlogo,
       required this.location, // u
       this.approved = false,
       this.type = 'isVendor'});

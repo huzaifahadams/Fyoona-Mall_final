@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-// String uri = 'https://fyoona-server-9ab9df30c053.herokuapp.com'; //good
-String uri = 'http://192.168.100.41:8000'; //bad
+String uri = 'http://192.168.243.19:8000'; //good
+// String uri = 'https://fyoonaserver.onrender.com'; //bad
 
 class GlobalVariables {
   // COLORS

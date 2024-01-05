@@ -4,6 +4,8 @@ import 'package:fyoona/buyers/views/auth/user_signup.dart';
 import 'package:fyoona/const/images.dart';
 import 'package:fyoona/vendors/views/auth/vendor_login.dart';
 
+import 'forget_pass.dart';
+
 class BuyersLoginScreen extends StatefulWidget {
   const BuyersLoginScreen({
     super.key,
@@ -216,7 +218,12 @@ class _BuyersLoginScreenState extends State<BuyersLoginScreen> {
                   Row(
                     children: [
                       TextButton(
-                        onPressed: () async {},
+                        onPressed: () async {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const ResetPasswordScreen();
+                          }));
+                        },
                         child: const Text('Forgot Password?'),
                       ),
                     ],

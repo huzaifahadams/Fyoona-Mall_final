@@ -42,7 +42,7 @@ class EarningScreen extends StatelessWidget {
             title: Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: NetworkImage(user.vendorlogo),
+                  backgroundImage: NetworkImage(user.vendorlogo.toString()),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -105,7 +105,7 @@ class EarningScreen extends StatelessWidget {
                   height: 150,
                   width: MediaQuery.of(context).size.width * 0.5,
                   decoration: BoxDecoration(
-                    color: Colors.yellow.shade900,
+                    color: Colors.black,
                     borderRadius: BorderRadius.circular(32),
                   ),
                   child: Padding(

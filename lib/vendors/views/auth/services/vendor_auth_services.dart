@@ -130,7 +130,7 @@ class AuthServiceVendor {
         location: location,
         token: '',
         email: email,
-        vendorlogo: imageUrl.toString(),
+        // vendorlogo: imageUrl.toString(),
         businessname: businessname,
       );
 
@@ -145,6 +145,7 @@ class AuthServiceVendor {
         response: res,
         context: context,
         onSuccess: () {
+          print(res);
           showSnackBar(
             context,
             'Account created! And Verify Email has sent to your email',
@@ -163,6 +164,9 @@ class AuthServiceVendor {
     } on TimeoutException {
       showSnackBar(context, "The request timed out. Please try again later.");
     } catch (e, stackTrace) {
+      print('object1 {$e}');
+      print('stack {$stackTrace}');
+
       showSnackBar(context,
           "An error occurred while creating account: ${e.toString()} \n Line number: ${stackTrace.toString().split('\n')[1]}");
     }

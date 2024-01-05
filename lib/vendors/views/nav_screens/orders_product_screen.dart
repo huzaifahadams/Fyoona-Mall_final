@@ -107,6 +107,9 @@ class VendorOrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading:
+            false, // Set this to false to hide the back button
+
         elevation: 0,
         backgroundColor: Colors.yellow.shade900,
         title: const Text(
@@ -224,6 +227,9 @@ class VendorOrdersScreen extends StatelessWidget {
                           subtitle: const Text('View Order Details'),
                           children:
                               vendorOrderData.products.map((Product product) {
+                            int quantityForProduct = vendorOrderData.quantity[
+                                vendorOrderData.products.indexOf(product)];
+
                             return ListTile(
                               leading: CircleAvatar(
                                 child: Image.network(product.imageUrList[0]),
@@ -243,7 +249,7 @@ class VendorOrdersScreen extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       Text(
-                                        vendorOrderData.quantity.toString(),
+                                        quantityForProduct.toString(),
                                         style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold),

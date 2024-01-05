@@ -30,6 +30,9 @@ class UploadsScreen extends StatelessWidget {
         key: _addProductFormKey,
         child: Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading:
+                false, // Set this to false to hide the back button
+
             backgroundColor: Colors.yellow.shade900,
             elevation: 0,
             bottom: const TabBar(tabs: [
@@ -79,9 +82,9 @@ class UploadsScreen extends StatelessWidget {
                         productProvider.productData['productDescription'],
                     imageUrList: productProvider.productData['imageUrList'],
                     videoUrl: productProvider.productData['mediaUrl'],
-                     // if(                    scheduleDate: productProvider.productData['scheduleDate'] == null)
+                    // if(                    scheduleDate: productProvider.productData['scheduleDate'] == null)
                     // ShowSnakBar(Text'Selecet date')
-                    
+
                     scheduleDate: productProvider.productData['scheduleDate'],
                     chargeShipping:
                         productProvider.productData['chargeShipping'],

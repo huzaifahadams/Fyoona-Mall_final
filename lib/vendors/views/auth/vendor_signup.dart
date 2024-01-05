@@ -59,7 +59,7 @@ class _VendorSignupScreenState extends State<VendorSignupScreen> {
       phonenumber: _phonenNumberController.text,
       fullname: _fullnameController.text,
       location: _locationController.text,
-      images: images,
+      // images: images,
       businessname: _bussinessNameController.text,
     );
 

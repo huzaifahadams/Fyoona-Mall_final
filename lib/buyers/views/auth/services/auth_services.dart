@@ -18,6 +18,7 @@ import '../../../error_handling.dart';
 import '../../../models/user.dart';
 import '../../../utils.dart';
 import '../../../../global_variables.dart';
+import '../buyers_verification_screen.dart';
 import '../user_login.dart';
 
 // Define the isJson function outside of the AuthService class
@@ -37,28 +38,27 @@ class AuthService {
   static late SharedPreferences prefs;
   // Method to log out the user
   // Add the context parameter
-Future<void> logOutUser(BuildContext context) async {
-  try {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  Future<void> logOutUser(BuildContext context) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // Print the current value of the access token
-    print('Current access token: ${prefs.getString('accessToken')}');
+      // Print the current value of the access token
+      print('Current access token: ${prefs.getString('accessToken')}');
 
-    // Check if the access token exists before removal
-    if (prefs.containsKey('accessToken')) {
-      bool success = await prefs.remove('accessToken');
-      print('Token removal success: $success');
-      
-      // Clear the user token in the provider
-      Provider.of<UserProvider>(context, listen: false).clearUserToken();
-    } else {
-      print('No access token found');
+      // Check if the access token exists before removal
+      if (prefs.containsKey('accessToken')) {
+        bool success = await prefs.remove('accessToken');
+        print('Token removal success: $success');
+
+        // Clear the user token in the provider
+        Provider.of<UserProvider>(context, listen: false).clearUserToken();
+      } else {
+        print('No access token found');
+      }
+    } catch (e) {
+      print("Error in logOutUser: $e");
     }
-  } catch (e) {
-    print("Error in logOutUser: $e");
   }
-}
-
 
 //singup user
   void signUpUser({
@@ -119,7 +119,9 @@ Future<void> logOutUser(BuildContext context) async {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const BuyersLoginScreen(),
+              builder: (context) => BuyersVerificationScreen(
+                email: user.email,
+              ),
             ),
           );
         },

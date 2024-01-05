@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fyoona/buyers/providers/user_provider.dart';
 import 'package:fyoona/const/colors.dart';
-import 'package:fyoona/vendors/providers/vendor_provider.dart';
-import 'package:fyoona/vendors/views/auth/vendor_login.dart';
-import 'package:fyoona/vendors/views/landing_screen.dart';
-import 'package:fyoona/vendors/views/main_vendor_screen.dart';
+// import 'package:fyoona/vendors/providers/vendor_provider.dart';
+// import 'package:fyoona/vendors/views/auth/vendor_login.dart';
+// import 'package:fyoona/vendors/views/landing_screen.dart';
+// import 'package:fyoona/vendors/views/main_vendor_screen.dart';
 
 import 'package:provider/provider.dart';
 
@@ -39,13 +39,13 @@ class _SplashScreenState extends State<SplashScreen> {
           //             : const VendorLoginScreen()
           //     : const BuyersLoginScreen();
 
-          // Provider.of<UserProvider>(context).user.token.isNotEmpty
-          //     ? const MainScreen()
-          //     : const BuyersLoginScreen();
+          Provider.of<UserProvider>(context).user.token.isNotEmpty
+              ? const MainScreen()
+              : const BuyersLoginScreen();
 
-          Provider.of<VendorProvider>(context).user.token.isNotEmpty
-              ? LandingScreen()
-              : const VendorLoginScreen();
+      // Provider.of<VendorProvider>(context).user.token.isNotEmpty
+      //     ? LandingScreen()
+      //     : const VendorLoginScreen();
     }));
   }
 

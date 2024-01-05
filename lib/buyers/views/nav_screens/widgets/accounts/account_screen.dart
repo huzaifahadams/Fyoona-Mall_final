@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyoona/buyers/views/nav_screens/widgets/accounts/services/account_services.dart';
+import 'package:fyoona/buyers/views/nav_screens/widgets/orders.dart';
 import 'package:fyoona/const/images.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
@@ -125,43 +126,24 @@ class _AccountScreenState extends State<AccountScreen> {
                   color: Colors.grey,
                 ),
               ),
-              // const ListTile(
-              //   leading: Icon(Icons.settings),
-              //   title: Text('Settings',
-              //       style: TextStyle(
-              //         fontSize: 20,
-              //       )),
-              // ),
-              // const ListTile(
-              //   leading: Icon(Icons.phone),
-              //   title: Text('Phone ',
-              //       style: TextStyle(
-              //         fontSize: 20,
-              //       )),
-              // ),
-              // const ListTile(
-              //   leading: Icon(Icons.shopping_cart),
-              //   title: Text('Cart',
-              //       style: TextStyle(
-              //         fontSize: 20,
-              //       )),
-              // ),
-              const ListTile(
-                // onTap: () {
-                //   Navigator.pushReplacement(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) {
-                //         return const Orders();
-                //       },
-                //     ),
-                //   );
-                // },
-                leading: Icon(Icons.shopping_basket_sharp),
-                title: Text('Orders',
-                    style: TextStyle(
-                      fontSize: 20,
-                    )),
+              ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const Orders();
+                      },
+                    ),
+                  );
+                },
+                leading: const Icon(Icons.logout),
+                title: const Text(
+                  'Orders',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
               ),
               ListTile(
                 onTap: () async {

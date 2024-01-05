@@ -11,6 +11,9 @@ class EditScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading:
+              false, // Set this to false to hide the back button
+
           elevation: 0,
           centerTitle: true,
           backgroundColor: Colors.yellow.shade900,

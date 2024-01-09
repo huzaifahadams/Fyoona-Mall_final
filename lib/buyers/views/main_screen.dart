@@ -5,6 +5,7 @@ import 'package:fyoona/buyers/views/nav_screens/search_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../const/exiting.dart';
+import '../../global_variables.dart';
 import '../providers/user_provider.dart';
 import 'cart/screens/cart_screen.dart';
 import 'nav_screens/store_screen.dart';
@@ -68,7 +69,7 @@ class _MainScreenState extends State<MainScreen> {
             });
           }),
           unselectedItemColor: Colors.black,
-          selectedItemColor: Colors.yellow.shade900,
+          selectedItemColor: fyoonaMainColor,
           items: [
             const BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.home), label: 'HOME'),

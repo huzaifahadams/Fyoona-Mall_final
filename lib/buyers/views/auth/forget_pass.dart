@@ -7,7 +7,6 @@ import 'package:fyoona/buyers/utils.dart';
 import 'package:fyoona/buyers/views/auth/user_login.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../const/colors.dart';
 import '../../../global_variables.dart';
 import '../../error_handling.dart';
 
@@ -68,7 +67,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
       appBar: AppBar(
         elevation: 0,
         title: const Text('Password Reset'),
-        backgroundColor: yellowcolor,
+        backgroundColor: fyoonaMainColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -108,7 +107,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   width: MediaQuery.of(context).size.width - 40,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.yellow.shade900,
+                    color: fyoonaMainColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(

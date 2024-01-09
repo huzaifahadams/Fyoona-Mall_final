@@ -41,7 +41,6 @@ class Vendor {
 
         businessname: map['businessname'] as String,
         approved: map['approved'] as bool,
-        // approved: map['approved'] == null ? false : map['approved'] as bool,
 
         type: map['type'] as String);
   }
@@ -56,6 +55,7 @@ class Vendor {
       'token': token,
       'businessname': businessname,
       'location': location,
+      'vendorlogo':vendorlogo,
       'approved': approved,
       'type': type,
     };

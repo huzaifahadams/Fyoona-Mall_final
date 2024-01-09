@@ -139,7 +139,7 @@ class _VendorWithdrawScreenState extends State<VendorWithdrawScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow.shade900,
+        backgroundColor: fyoonaMainColor,
         elevation: 0,
         title: const Text(
           'Withdraw',

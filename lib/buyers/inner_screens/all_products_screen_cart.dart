@@ -4,20 +4,22 @@ import 'package:video_player/video_player.dart';
 
 import '../../../../vendors/models/product.dart';
 import '../../../../vendors/views/services/products_services.dart';
+import '../../global_variables.dart';
 import '../views/productDetails/screens/product_detail_screen.dart';
 
 class AllProductScreenCart extends StatelessWidget {
   final String categoryName;
   final dynamic categoryData;
 
-  const AllProductScreenCart({super.key, required this.categoryName, this.categoryData});
+  const AllProductScreenCart(
+      {super.key, required this.categoryName, this.categoryData});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           elevation: 1,
-          backgroundColor: Colors.yellow.shade900,
+          backgroundColor: fyoonaMainColor,
           title: Text(
             categoryData['categoryName'],
             style: const TextStyle(
@@ -34,7 +36,7 @@ class AllProductScreenCart extends StatelessWidget {
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return LinearProgressIndicator(
-              color: Colors.yellow.shade900,
+              color: fyoonaMainColor,
             );
           } else {
             return SingleChildScrollView(
@@ -121,7 +123,7 @@ class AllProductScreenCart extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                   letterSpacing: 4,
-                                  color: Colors.yellow.shade900),
+                                  color: fyoonaMainColor),
                             ),
                           ],
                         ),

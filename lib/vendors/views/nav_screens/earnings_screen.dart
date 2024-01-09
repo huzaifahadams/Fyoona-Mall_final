@@ -67,7 +67,7 @@ class EarningScreen extends StatelessWidget {
                   height: 150,
                   width: MediaQuery.of(context).size.width * 0.5,
                   decoration: BoxDecoration(
-                    color: Colors.yellow.shade900,
+                    color: fyoonaMainColor,
                     borderRadius: BorderRadius.circular(32),
                   ),
                   child: Padding(
@@ -154,7 +154,7 @@ class EarningScreen extends StatelessWidget {
                     height: 40,
                     width: MediaQuery.of(context).size.width - 40,
                     decoration: BoxDecoration(
-                      color: Colors.yellow.shade900,
+                      color: fyoonaMainColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Center(

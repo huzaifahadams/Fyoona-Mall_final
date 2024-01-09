@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fyoona/vendors/views/nav_screens/edit_prodct_screen.dart';
 import 'package:fyoona/vendors/views/nav_screens/uploads_products_screen.dart';
 
+import '../../global_variables.dart';
 import 'nav_screens/earnings_screen.dart';
 import 'nav_screens/logout_vendor_screen.dart';
 import 'nav_screens/orders_product_screen.dart';
@@ -36,7 +37,7 @@ class _MainVendorScreenState extends State<MainVendorScreen> {
           },
           type: BottomNavigationBarType.fixed,
           unselectedItemColor: Colors.black,
-          selectedItemColor: Colors.yellow.shade900,
+          selectedItemColor: fyoonaMainColor,
           items: const [
             BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.money_dollar), label: 'Earnings'),

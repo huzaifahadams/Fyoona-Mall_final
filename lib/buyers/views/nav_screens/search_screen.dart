@@ -67,7 +67,7 @@ class SearchScreenState extends State<SearchScreen> {
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return LinearProgressIndicator(
-                    color: Colors.yellow.shade900,
+                    color: fyoonaMainColor,
                   );
                 } else {
                   final searchedData = snapshot.data!.where((element) {
@@ -161,7 +161,7 @@ class SearchScreenState extends State<SearchScreen> {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18,
                                           letterSpacing: 4,
-                                          color: Colors.yellow.shade900,
+                                          color: fyoonaMainColor,
                                         ),
                                       ),
                                     ],

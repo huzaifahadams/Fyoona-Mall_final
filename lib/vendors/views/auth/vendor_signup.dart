@@ -34,7 +34,7 @@ class _VendorSignupScreenState extends State<VendorSignupScreen> {
   final TextEditingController _bussinessNameController =
       TextEditingController();
   final TextEditingController _locationController = TextEditingController();
-  final TextEditingController __taxNumberController = TextEditingController();
+  // final TextEditingController __taxNumberController = TextEditingController();
 
   @override
   void dispose() {
@@ -59,7 +59,7 @@ class _VendorSignupScreenState extends State<VendorSignupScreen> {
       phonenumber: _phonenNumberController.text,
       fullname: _fullnameController.text,
       location: _locationController.text,
-      // images: images,
+      images: images,
       businessname: _bussinessNameController.text,
     );
 
@@ -214,16 +214,16 @@ class _VendorSignupScreenState extends State<VendorSignupScreen> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: TextFormField(
-                      controller: __taxNumberController,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        labelText: 'Tax Number',
-                      ),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(10.0),
+                  //   child: TextFormField(
+                  //     controller: __taxNumberController,
+                  //     keyboardType: TextInputType.number,
+                  //     decoration: const InputDecoration(
+                  //       labelText: 'Tax Number',
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.all(13.0),
                     child: TextFormField(

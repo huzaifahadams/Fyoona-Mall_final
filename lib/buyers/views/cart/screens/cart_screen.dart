@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fyoona/buyers/views/nav_screens/widgets/address_box.dart';
-import 'package:fyoona/const/colors.dart';
 
 import 'package:provider/provider.dart';
 
+import '../../../../global_variables.dart';
 import '../../../providers/user_provider.dart';
 import '../../nav_screens/widgets/address/screens/address_screen.dart';
 import '../../nav_screens/widgets/custom_button.dart';
@@ -33,7 +33,7 @@ class _CartScreenState extends State<CartScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow.shade900,
+        backgroundColor: fyoonaMainColor,
         elevation: 0,
         title: const Text(
           'Shopping Cart',
@@ -65,7 +65,7 @@ class _CartScreenState extends State<CartScreen> {
                   ? CustomButton(
                       text: 'Buy (${user.cart.length} items )',
                       onTap: () => navigateToAddress(sum),
-                      color: yellowcolor,
+                      color: fyoonaMainColor,
                     )
                   : const SizedBox(), // You can replace SizedBox() with any other widget or an empty container if you want to have a placeholder when the condition is not met.
             ),

@@ -74,7 +74,7 @@ class StoreScreenState extends State<StoreScreen> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                     child: CircularProgressIndicator(
-                        color: Colors.yellow.shade900));
+                        color: fyoonaMainColor));
               }
 
               if (!snapshot.hasData || snapshot.data!.isEmpty) {

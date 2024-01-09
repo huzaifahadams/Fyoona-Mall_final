@@ -111,7 +111,7 @@ class VendorOrdersScreen extends StatelessWidget {
             false, // Set this to false to hide the back button
 
         elevation: 0,
-        backgroundColor: Colors.yellow.shade900,
+        backgroundColor: fyoonaMainColor,
         title: const Text(
           'My Orders',
           style: TextStyle(
@@ -196,7 +196,7 @@ class VendorOrdersScreen extends StatelessWidget {
                               ? Text(
                                   'Accepted',
                                   style:
-                                      TextStyle(color: Colors.yellow.shade900),
+                                      TextStyle(color: fyoonaMainColor),
                                 )
                               : const Text(
                                   'Not Accepted',
@@ -222,7 +222,7 @@ class VendorOrdersScreen extends StatelessWidget {
                           title: Text(
                             'Order Details',
                             style: TextStyle(
-                                color: Colors.yellow.shade900, fontSize: 15),
+                                color: fyoonaMainColor, fontSize: 15),
                           ),
                           subtitle: const Text('View Order Details'),
                           children:

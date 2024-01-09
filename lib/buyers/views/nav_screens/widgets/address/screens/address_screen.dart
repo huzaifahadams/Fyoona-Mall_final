@@ -11,7 +11,6 @@ import 'package:fyoona/buyers/views/nav_screens/widgets/custom_textfield.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../../../../../const/colors.dart';
 import '../../../../../../const/styles.dart';
 import '../../../../../../global_variables.dart';
 import '../../../../../utils.dart';
@@ -257,7 +256,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 onTap: () async {
                   payPressed(address, user);
                 },
-                color: yellowcolor,
+                color: fyoonaMainColor,
               ),
             ],
           ),

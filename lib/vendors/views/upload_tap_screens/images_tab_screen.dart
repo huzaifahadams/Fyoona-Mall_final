@@ -7,6 +7,8 @@ import 'package:fyoona/vendors/providers/product_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../../../global_variables.dart';
+
 class ImagesTabScreen extends StatefulWidget {
   const ImagesTabScreen({super.key});
 
@@ -72,7 +74,7 @@ class _ImagesTabScreenState extends State<ImagesTabScreen>
           ),
           TextButton(
             onPressed: () async {
-              final cloudinary = CloudinaryPublic('dgysnizyn', 'snwj9yw0 ');
+              final cloudinary = CloudinaryPublic(iduser, idpass);
 
               EasyLoading.show(status: 'Uploading');
               for (int i = 0; i < _image.length; i++) {
@@ -82,7 +84,7 @@ class _ImagesTabScreenState extends State<ImagesTabScreen>
                 );
                 _imageUrlList.add(res.secureUrl);
               }
-            
+
               setState(() {
                 productProvider.getFormData(imageUrList: _imageUrlList);
 

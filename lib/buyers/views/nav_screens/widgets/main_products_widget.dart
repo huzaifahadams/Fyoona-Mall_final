@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../../global_variables.dart';
 import '../../../../vendors/models/product.dart';
 import '../../../../vendors/views/services/products_services.dart';
 import '../../productDetails/screens/product_detail_screen.dart';
@@ -20,7 +21,7 @@ class MainAllProducts extends StatelessWidget {
 
         if (snapshot.connectionState == ConnectionState.waiting) {
           return LinearProgressIndicator(
-            color: Colors.yellow.shade900,
+            color: fyoonaMainColor,
           );
         } else {
           return ListView.separated(
@@ -106,7 +107,7 @@ class MainAllProducts extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                               letterSpacing: 4,
-                              color: Colors.yellow.shade900),
+                              color: fyoonaMainColor),
                         ),
                       ],
                     ),

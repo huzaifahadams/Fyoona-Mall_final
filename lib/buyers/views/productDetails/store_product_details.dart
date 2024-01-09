@@ -65,7 +65,7 @@ class _StoreProductsScreenState extends State<StoreProductsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow.shade900,
+        backgroundColor: fyoonaMainColor,
         title: Text(
           widget.storeData['businessname'],
         ),
@@ -81,7 +81,7 @@ class _StoreProductsScreenState extends State<StoreProductsScreen> {
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return LinearProgressIndicator(
-              color: Colors.yellow.shade900,
+              color: fyoonaMainColor,
             );
           }
 
@@ -170,7 +170,7 @@ class _StoreProductsScreenState extends State<StoreProductsScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                               letterSpacing: 4,
-                              color: Colors.yellow.shade900,
+                              color: fyoonaMainColor,
                             ),
                           ),
                         ],

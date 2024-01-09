@@ -7,6 +7,7 @@ import 'package:fyoona/vendors/views/upload_tap_screens/general_screen.dart';
 import 'package:fyoona/vendors/views/upload_tap_screens/images_tab_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../global_variables.dart';
 import '../../providers/vendor_provider.dart';
 import '../upload_tap_screens/attributes_tab_screen.dart';
 import '../upload_tap_screens/shipping_screen.dart';
@@ -33,7 +34,7 @@ class UploadsScreen extends StatelessWidget {
             automaticallyImplyLeading:
                 false, // Set this to false to hide the back button
 
-            backgroundColor: Colors.yellow.shade900,
+            backgroundColor: fyoonaMainColor,
             elevation: 0,
             bottom: const TabBar(tabs: [
               Tab(
@@ -64,7 +65,7 @@ class UploadsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.yellow.shade900,
+                backgroundColor: fyoonaMainColor,
               ),
               onPressed: () async {
                 if (_addProductFormKey.currentState!.validate()) {

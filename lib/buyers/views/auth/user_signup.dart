@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fyoona/buyers/views/auth/user_login.dart';
 
 import '../../../const/images.dart';
+import '../../../global_variables.dart';
 import '../../utils.dart';
 import 'services/auth_services.dart';
 
@@ -212,7 +213,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                       width: MediaQuery.of(context).size.width - 40,
                       height: 50,
                       decoration: BoxDecoration(
-                          color: Colors.yellow.shade900,
+                          color: fyoonaMainColor,
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
                           child: isLoading

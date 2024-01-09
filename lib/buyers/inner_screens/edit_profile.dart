@@ -1,10 +1,19 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fyoona/const/images.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
+import '../../global_variables.dart';
 import '../providers/user_provider.dart';
+import '../utils.dart';
+import 'dart:convert'; // Import the 'dart:convert' library
 
 class EditProfileScreen extends StatefulWidget {
   final dynamic user;
@@ -16,6 +25,8 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final TextEditingController _fullNameController = TextEditingController();
 
   final TextEditingController _emalController = TextEditingController();
@@ -23,8 +34,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
-  String? address;
+  final TextEditingController _newpassController = TextEditingController();
 
+  String? address;
+  String? password;
   @override
   void initState() {
     _fullNameController.text = widget.user.fullname;
@@ -34,13 +47,80 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
   }
 
-  updateUser() {}
+  updateUser() async {
+    try {
+      EasyLoading.show(status: 'Updating...');
+      // Get the authentication token from the UserProvider
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      String authToken = userProvider.user.token;
+
+      // Create a map of the data to send to the API
+      Map<String, dynamic> data = {
+        'fullName': _fullNameController.text,
+        'email': _emalController.text,
+        'phone': _phoneController.text,
+        'address': _addressController.text,
+        'newPassword': _newpassController.text,
+      };
+
+      // Convert the map to a JSON string
+      String jsonData = jsonEncode(data);
+
+      // Make the PUT request to your API with the authentication token in the headers
+      final response = await http.put(
+        Uri.parse('$uri/api/users/updateuser/${widget.user.id}'),
+        headers: {
+          'Authorization': 'Bearer $authToken',
+          'Content-Type': 'application/json', // Set the content type to JSON
+        },
+        body: jsonData, // Use the JSON string as the request body
+      );
+
+      if (response.statusCode == 200) {
+        // Successfully updated user data
+        EasyLoading.dismiss();
+        Navigator.of(context).pop();
+      } else {
+        // Handle API errors
+        if (response.body
+            .contains('Password must be at least 6 characters long')) {
+          // Show Snackbar for password length error
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Password must be at least 6 characters long'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+          EasyLoading.dismiss();
+
+          return null;
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Failed to update user data'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      }
+    } on SocketException {
+      showSnackBar(context, "Please check your internet connection.");
+    } on TimeoutException {
+      showSnackBar(context, "The request timed out. Please try again later.");
+    } catch (e, stackTrace) {
+      showSnackBar(
+        context,
+        "An error occurred while fetching products: ${e.toString()} \n Line number: ${stackTrace.toString().split('\n')[1]}",
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         elevation: 0,
         iconTheme: const IconThemeData(
@@ -72,7 +152,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       backgroundImage: user.userImg != ''
                           ? NetworkImage(user.userImg!)
                           : const AssetImage(userImgz) as ImageProvider,
-                      // backgroundColor: Colors.yellow.shade900,
+                      // backgroundColor: fyoonaMainColor,
                     ),
                     Positioned(
                       right: 0,
@@ -98,9 +178,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: TextFormField(
                     controller: _emalController,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      labelText: "Enter Email",
-                    ),
+                    readOnly: true,
                   ),
                 ),
                 Padding(
@@ -126,26 +204,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                   ),
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: TextFormField(
+                //     controller: _oldpassController,
+                //     keyboardType: TextInputType.text,
+                //     onChanged: (value) {
+                //       password = value;
+                //     },
+                //     decoration: const InputDecoration(
+                //       labelText: "Enter Old Password",
+                //     ),
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    // controller: _addressController,
+                    controller: _newpassController,
                     keyboardType: TextInputType.text,
                     onChanged: (value) {
-                      // address = value;
-                    },
-                    decoration: const InputDecoration(
-                      labelText: "Enter Old Password",
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    // controller: ,
-                    keyboardType: TextInputType.text,
-                    onChanged: (value) {
-                      // address = value;
+                      password = value;
                     },
                     decoration: const InputDecoration(
                       labelText: "Enter New Password",
@@ -161,17 +239,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           onTap: () async {
-            EasyLoading.show(status: 'Updating...');
-            updateUser().whenComplete(() {
-              EasyLoading.dismiss();
-              Navigator.pop(context);
-            });
+            // EasyLoading.show(status: 'Updating...');
+            updateUser();
+            // .whenComplete(() {
+            //   EasyLoading.dismiss();
+            //   Navigator.of(context).pop();
+            // });
           },
           child: Container(
             height: 40,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: Colors.yellow.shade900,
+              color: fyoonaMainColor,
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Center(

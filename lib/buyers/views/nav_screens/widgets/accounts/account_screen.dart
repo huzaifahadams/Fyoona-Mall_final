@@ -4,6 +4,7 @@ import 'package:fyoona/buyers/views/nav_screens/widgets/orders.dart';
 import 'package:fyoona/const/images.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import '../../../../../global_variables.dart';
 import '../../../../inner_screens/edit_profile.dart';
 import '../../../../providers/user_provider.dart';
 
@@ -31,7 +32,7 @@ class _AccountScreenState extends State<AccountScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
-        backgroundColor: Colors.yellow.shade900,
+        backgroundColor: fyoonaMainColor,
         title: const Text(
           'Profile',
           style: TextStyle(letterSpacing: 4),
@@ -106,7 +107,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   height: 40,
                   width: MediaQuery.of(context).size.width - 200,
                   decoration: BoxDecoration(
-                    color: Colors.yellow.shade900,
+                    color: fyoonaMainColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Center(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../const/styles.dart';
+import '../../../global_variables.dart';
 import '../../models/product.dart';
 import '../services/products_services.dart';
 
@@ -42,7 +43,7 @@ class _VendorProductDetailScreenState extends State<VendorProductDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.yellow.shade900,
+        backgroundColor: fyoonaMainColor,
         title: Text(
           widget.productData.productName,
           style: const TextStyle(color: Colors.black),
@@ -154,7 +155,7 @@ class _VendorProductDetailScreenState extends State<VendorProductDetailScreen> {
             height: 40,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: Colors.yellow.shade900,
+              color: fyoonaMainColor,
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Center(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-String uri = 'http://192.168.243.19:8000'; //good
+String uri = 'http://192.168.16.19:8000'; //good
+// String uri = 'https://fyoona-64126387e533.herokuapp.com';
+
 // String uri = 'https://fyoonaserver.onrender.com'; //bad
 
 class GlobalVariables {
@@ -16,7 +18,11 @@ class GlobalVariables {
   static const secondaryColor = Color.fromRGBO(255, 153, 0, 1);
   static const backgroundColor = Colors.white;
   static const Color greyBackgroundCOlor = Color(0xffebecee);
-  static var selectedNavBarColor = Colors.cyan[800]!;
-  static const unselectedNavBarColor = Colors.black87;
   static const Color fyoonaColor = Color.fromARGB(255, 14, 224, 24);
 }
+
+/// cloudinary
+///
+const iduser = 'dgysnizyn';
+const idpass = 'snwj9yw0';
+Color fyoonaMainColor = Colors.yellow.shade900;

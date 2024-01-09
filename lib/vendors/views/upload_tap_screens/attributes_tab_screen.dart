@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../global_variables.dart';
 import '../../providers/product_provider.dart';
 
 class AttributesTabScreen extends StatefulWidget {
@@ -90,7 +91,7 @@ class _AttributesTabScreenState extends State<AttributesTabScreen>
                 _entred2 == true
                     ? ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.yellow.shade900),
+                            backgroundColor: fyoonaMainColor),
                         onPressed: () {
                           setState(() {
                             _colorList.add(_colorController.text);

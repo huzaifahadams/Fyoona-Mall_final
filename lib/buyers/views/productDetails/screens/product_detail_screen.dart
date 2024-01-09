@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../const/styles.dart';
+import '../../../../global_variables.dart';
 import '../../../../vendors/models/product.dart';
 import '../../../providers/user_provider.dart';
 import '../../nav_screens/widgets/starts.dart';
@@ -131,7 +132,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   border:
-                                      Border.all(color: Colors.yellow.shade900),
+                                      Border.all(color: fyoonaMainColor),
                                 ),
                                 height: 60,
                                 width: 60,
@@ -157,7 +158,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     fontSize: 22,
                     letterSpacing: 8,
                     fontWeight: FontWeight.bold,
-                    color: Colors.yellow.shade900),
+                    color: fyoonaMainColor),
               ),
             ),
             Text(
@@ -174,11 +175,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 children: [
                   Text(
                     'Product Description',
-                    style: TextStyle(color: Colors.yellow.shade900),
+                    style: TextStyle(color: fyoonaMainColor),
                   ),
                   Text(
                     'View More',
-                    style: TextStyle(color: Colors.yellow.shade900),
+                    style: TextStyle(color: fyoonaMainColor),
                   )
                 ],
               ),
@@ -202,7 +203,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   Text(
                     'Delivery on',
                     style: TextStyle(
-                        color: Colors.yellow.shade900,
+                        color: fyoonaMainColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 18),
                   ),
@@ -301,7 +302,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Colors.yellow.shade900),
+                color: fyoonaMainColor),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [

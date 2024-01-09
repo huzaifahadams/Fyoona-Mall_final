@@ -6,6 +6,7 @@ import 'package:fyoona/vendors/models/product.dart';
 import 'package:fyoona/vendors/views/services/products_services.dart';
 import 'package:provider/provider.dart';
 
+import '../../../global_variables.dart';
 import '../../providers/vendor_provider.dart';
 import '../vendorProductDetail/vendor_product_detail_screen.dart';
 
@@ -27,7 +28,7 @@ class UnpubLishedTab extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(
-                color: Colors.yellow.shade900,
+                color: fyoonaMainColor,
               ),
             );
           }
@@ -89,7 +90,7 @@ class UnpubLishedTab extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.yellow.shade900,
+                                  color: fyoonaMainColor,
                                 ),
                               )
                             ],

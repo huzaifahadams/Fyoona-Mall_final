@@ -79,7 +79,7 @@ class _CategoryTextState extends State<CategoryText> {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ActionChip(
-                            backgroundColor: Colors.yellow.shade900,
+                            backgroundColor: fyoonaMainColor,
                             onPressed: () {
                               setState(() {
                                 _selectedCategory = categoryName;

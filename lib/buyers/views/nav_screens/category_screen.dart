@@ -76,7 +76,7 @@ class CategoryScreenState extends State<CategoryScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
                 child:
-                    CircularProgressIndicator(color: Colors.yellow.shade900));
+                    CircularProgressIndicator(color: fyoonaMainColor));
           }
 
           if (!snapshot.hasData || snapshot.data!.isEmpty) {

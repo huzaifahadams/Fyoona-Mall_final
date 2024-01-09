@@ -77,7 +77,7 @@ class Orders extends StatelessWidget {
             true, // Set this to false to hide the back button
 
         elevation: 0,
-        backgroundColor: Colors.yellow.shade900,
+        backgroundColor: fyoonaMainColor,
         title: const Text(
           'My Orders',
           style: TextStyle(
@@ -123,7 +123,7 @@ class Orders extends StatelessWidget {
                               ? Text(
                                   'delivered',
                                   style:
-                                      TextStyle(color: Colors.yellow.shade900),
+                                      TextStyle(color: fyoonaMainColor),
                                 )
                               : const Text(
                                   'Not delivered',
@@ -149,7 +149,7 @@ class Orders extends StatelessWidget {
                           title: Text(
                             'Order Details',
                             style: TextStyle(
-                                color: Colors.yellow.shade900, fontSize: 15),
+                                color: fyoonaMainColor, fontSize: 15),
                           ),
                           subtitle: const Text('View Order Details'),
                           children:

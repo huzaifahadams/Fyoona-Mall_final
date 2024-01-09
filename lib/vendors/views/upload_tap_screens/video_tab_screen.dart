@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../global_variables.dart';
 import '../../providers/product_provider.dart';
 
 class VideoTabScreen extends StatefulWidget {
@@ -124,7 +125,7 @@ class _VideoTabScreenState extends State<VideoTabScreen>
             onPressed: () async {
               if (_selectedMedia != null) {
                 EasyLoading.show(status: 'Uploading');
-                final cloudinary = CloudinaryPublic('dgysnizyn', 'snwj9yw0 ');
+                final cloudinary = CloudinaryPublic(iduser, idpass);
                 if (_selectedMedia != null) {
                   CloudinaryResponse res = await cloudinary.uploadFile(
                     CloudinaryFile.fromFile(_selectedMedia!.path,
@@ -132,7 +133,6 @@ class _VideoTabScreenState extends State<VideoTabScreen>
                   );
                   _mediaUrl = res.secureUrl;
                 }
-
               }
               setState(() {
                 productProvider.getFormData(mediaUrl: _mediaUrl);

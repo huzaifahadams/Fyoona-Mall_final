@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fyoona/vendors/views/edit_products_tabs/published_tab.dart';
 import 'package:fyoona/vendors/views/edit_products_tabs/unpublished_tab.dart';
 
+import '../../../global_variables.dart';
+
 class EditScreen extends StatelessWidget {
   const EditScreen({super.key});
 
@@ -16,7 +18,7 @@ class EditScreen extends StatelessWidget {
 
           elevation: 0,
           centerTitle: true,
-          backgroundColor: Colors.yellow.shade900,
+          backgroundColor: fyoonaMainColor,
           title: const Text(
             'Manage Products',
             style: TextStyle(

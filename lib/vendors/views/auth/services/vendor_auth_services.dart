@@ -54,16 +54,6 @@ class AuthServiceVendor {
     }
   }
 
-  // Future<Uint8List?> pickProfileImage(ImageSource source) async {
-  //   final ImagePicker imagePicker = ImagePicker();
-  //   XFile? file = await imagePicker.pickImage(source: source);
-  //   if (file != null) {
-  //     return await file.readAsBytes();
-  //   } else {
-  //     return null;
-  //   }
-  // }
-
   Future<Uint8List?> pickProfileImage(ImageSource source) async {
     final ImagePicker imagePicker = ImagePicker();
     XFile? file = await imagePicker.pickImage(source: source);
@@ -77,7 +67,7 @@ class AuthServiceVendor {
   Future<String?> uploadImageToCloudinary(
       Uint8List images, String fullname) async {
     try {
-      final cloudinary = CloudinaryPublic('dgysnizyn', 'snwj9yw0');
+      final cloudinary = CloudinaryPublic(iduser, idpass);
       CloudinaryResponse response = await cloudinary.uploadFile(
         CloudinaryFile.fromFile(images.toString(), folder: fullname),
       );
@@ -116,7 +106,7 @@ class AuthServiceVendor {
         location: location,
         token: '',
         email: email,
-        // vendorlogo: imageUrl.toString(),
+        vendorlogo: imageUrl.toString(),
         businessname: businessname,
       );
 

@@ -43,7 +43,7 @@ class _CartProductState extends State<CartProduct> {
     final productCart = context.watch<UserProvider>().user.cart[widget.index];
     final productData = Product.fromMap(productCart['product']);
     final quantity = productCart['quantity'];
-
+    final selectedColor = productCart['selectedColor'];
     return Column(
       children: [
         Container(
@@ -70,14 +70,6 @@ class _CartProductState extends State<CartProduct> {
                 ),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-              // Image.network(
-              //   productData.imageUrList[0],
-              //   fit: BoxFit.contain,
-              //   // fit: BoxFit.fitWidth,
-
-              //   height: 135,
-              //   width: 135,
-              // ),
               Column(
                 children: [
                   Container(
@@ -115,13 +107,15 @@ class _CartProductState extends State<CartProduct> {
                     padding: const EdgeInsets.only(
                       left: 10,
                     ),
-                    child: const Text(
-                      'yellow',
-                      style: TextStyle(
-                        color: Colors.teal,
-                      ),
-                      maxLines: 2,
-                    ),
+                    child: (selectedColor == null)
+                        ? const Text("")
+                        : Text(
+                            selectedColor.toString(),
+                            style: const TextStyle(
+                              color: Colors.teal,
+                            ),
+                            maxLines: 2,
+                          ),
                   ),
                   Container(
                     width: 235,
@@ -181,13 +175,11 @@ class _CartProductState extends State<CartProduct> {
                     height: 32,
                     alignment: Alignment.center,
                     child: Text(
-                    
                       quantity.toString(),
                     ),
                   ),
                 ),
                 InkWell(
-
                   onTap: () => increseQnty(productData),
                   child: Container(
                     width: 35,

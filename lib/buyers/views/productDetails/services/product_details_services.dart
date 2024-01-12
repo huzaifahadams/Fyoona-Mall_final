@@ -14,7 +14,6 @@ import '../../../models/user.dart';
 import '../../../utils.dart';
 
 class ProductDetailsService {
-  //add to cart
   void addToCart({
     required BuildContext context,
     required Product product,
@@ -28,16 +27,12 @@ class ProductDetailsService {
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
-
         },
         body: jsonEncode({
           'id': product.id!,
-          'selectedColor':selectedColor,
-          
-          }),
+          'selectedColor': selectedColor,
+        }),
       );
-
-      // ignore: use_build_context_synchronously
       httpErrorHandle(
         response: res,
         context: context,
@@ -90,75 +85,4 @@ class ProductDetailsService {
       // "An error occurred while fetching products: ${e.toString()}");
     }
   }
-
-//   // get products
-
-//   Future<List<Product>> fetchAllProducts(BuildContext context) async {
-//     final userProvider = Provider.of<UserProvider>(context, listen: false);
-//     List<Product> productList = [];
-//     try {
-//       http.Response res =
-//           await http.get(Uri.parse('$uri/admin/get-products'), headers: {
-//         'Content-Type': 'application/json; charset-UTF-8',
-//         'x-auth-token': userProvider.user.token,
-//       });
-//       // ignore: use_build_context_synchronously
-//       httpErrorHandle(
-//         response: res,
-//         context: context,
-//         onSuccess: () {
-//           for (int i = 0; i < jsonDecode(res.body).length; i++) {
-//             productList.add(
-//               Product.fromJson(
-//                 jsonEncode(jsonDecode(res.body)[i]),
-//               ),
-//             );
-//           }
-//         },
-//       );
-//     } on SocketException {
-//       showSnackBar(context, "Please check your internet connection.");
-//     } on TimeoutException {
-//       showSnackBar(context, "The request timed out. Please try again later.");
-//     } catch (e, stackTrace) {
-//       showSnackBar(context,
-//           "An error occurred while fetching products: ${e.toString()} \n Line number: ${stackTrace.toString().split('\n')[1]}");
-
-//       // "An error occurred while fetching products: ${e.toString()}");
-//     }
-//     return productList;
-//   }
-
-//   //delete product
-//   void delteProduct({
-//     required BuildContext context,
-//     required Product product,
-//     required VoidCallback onSuccess,
-//   }) async {
-//     final userProvider = Provider.of<UserProvider>(context, listen: false);
-//     try {
-//       http.Response res = await http.post(
-//         Uri.parse('$uri/admin/del-product'),
-//         headers: <String, String>{
-//           'Content-Type': 'application/json; charset=UTF-8',
-//           'x-auth-token': userProvider.user.token,
-//         },
-//         body: jsonEncode({
-//           'id': product.id,
-//         }),
-//       );
-
-//       // ignore: use_build_context_synchronously
-//       httpErrorHandle(
-//         response: res,
-//         context: context,
-//         onSuccess: () {
-//           onSuccess();
-//         },
-//       );
-//     } catch (e) {
-//       showSnackBar(context, e.toString());
-//     }
-//   }
-// }
 }

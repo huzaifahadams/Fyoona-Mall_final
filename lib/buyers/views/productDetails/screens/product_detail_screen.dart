@@ -67,6 +67,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     productDetailsService.addToCart(
       context: context,
       product: widget.productData,
+      selectedColor: _selectedColor,
     );
   }
 
@@ -80,8 +81,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black),
         title: Text(widget.productData.productName,
-            // Stars(rating: avgRating),
-
             style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -131,8 +130,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: fyoonaMainColor),
+                                  border: Border.all(color: fyoonaMainColor),
                                 ),
                                 height: 60,
                                 width: 60,
@@ -241,8 +239,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             child: OutlinedButton(
                               onPressed: () {
                                 setState(() {
-                                  _selectedColor =
-                                      widget.productData.colorList![index];
+    _selectedColor = widget.productData.colorList![index];
                                 });
                               },
                               child: Text(widget.productData.colorList![index]),

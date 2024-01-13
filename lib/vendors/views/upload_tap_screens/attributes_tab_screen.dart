@@ -71,13 +71,13 @@ class _AttributesTabScreenState extends State<AttributesTabScreen>
                   child: SizedBox(
                     width: 100,
                     child: TextFormField(
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter color';
-                        } else {
-                          return null;
-                        }
-                      },
+                      // validator: (value) {
+                      //   if (value!.isEmpty) {
+                      //     return 'Enter color';
+                      //   } else {
+                      //     return null;
+                      //   }
+                      // },
                       controller: _colorController,
                       onChanged: (value) {
                         setState(() {

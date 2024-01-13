@@ -34,7 +34,7 @@ class WelcomeWidgetState extends State<WelcomeWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
-            'Howdt, What Are You\n Looking For 👀',
+            'Howdt, What Are You\n Looking For',
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -42,12 +42,7 @@ class WelcomeWidgetState extends State<WelcomeWidget> {
             ),
           ),
           GestureDetector(
-            // onTap: () {
-            //   Navigator.pushReplacement(context,
-            //       MaterialPageRoute(builder: (context) {
-            //     return const CartScreen();
-            //   }));
-            // },
+          
             child: Stack(
               children: [
                 SvgPicture.asset(

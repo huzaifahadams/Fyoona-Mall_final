@@ -239,7 +239,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             child: OutlinedButton(
                               onPressed: () {
                                 setState(() {
-    _selectedColor = widget.productData.colorList![index];
+                                  _selectedColor =
+                                      widget.productData.colorList![index];
                                 });
                               },
                               child: Text(widget.productData.colorList![index]),
@@ -284,13 +285,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         child: InkWell(
           onTap: () {
             if (_selectedColor == null) {
-              //||_selectedSize == null
-              // ignore: void_checks
-              return ShowSnack(context, 'Please select the the color');
+              ShowSnack(context, 'Please select the the color');
+            } else if (widget.productData.quantity <= 0) {
+              ShowSnack(context,
+                  ' ${widget.productData.productName}  is out of stock');
             } else {
               addToCart();
-              // ignore: void_checks
-              return ShowSnack2(context,
+              ShowSnack2(context,
                   'You Added ${widget.productData.productName} To Your Cart');
             }
           },

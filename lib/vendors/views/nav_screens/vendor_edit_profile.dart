@@ -3,29 +3,31 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:fyoona/const/images.dart';
+import 'package:fyoona/vendors/providers/vendor_provider.dart';
+import 'package:fyoona/vendors/views/nav_screens/update_more.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
-import '../../const/styles.dart';
-import '../../global_variables.dart';
-import '../providers/user_provider.dart';
-import '../utils.dart';
-import 'dart:convert'; // Import the 'dart:convert' library
+import 'dart:convert';
 
-class EditProfileScreen extends StatefulWidget {
+import '../../../buyers/utils.dart';
+import '../../../const/styles.dart';
+import '../../../global_variables.dart'; // Import the 'dart:convert' library
+
+class EditProfileScreenVendor extends StatefulWidget {
   final dynamic user;
 
-  const EditProfileScreen({Key? key, required this.user}) : super(key: key);
+  const EditProfileScreenVendor({Key? key, required this.user})
+      : super(key: key);
 
   @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
+  State<EditProfileScreenVendor> createState() =>
+      _EditProfileScreenVendorState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class _EditProfileScreenVendorState extends State<EditProfileScreenVendor> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final TextEditingController _fullNameController = TextEditingController();
@@ -33,18 +35,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _emalController = TextEditingController();
 
   final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
 
   final TextEditingController _newpassController = TextEditingController();
 
-  String? address;
+  String? location;
   String? password;
   @override
   void initState() {
     _fullNameController.text = widget.user.fullname;
     _emalController.text = widget.user.email;
     _phoneController.text = widget.user.phonenumber;
-    _addressController.text = widget.user.address;
+    _locationController.text = widget.user.location;
     super.initState();
   }
 
@@ -52,7 +54,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     try {
       EasyLoading.show(status: 'Updating...');
       // Get the authentication token from the UserProvider
-      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      final userProvider = Provider.of<VendorProvider>(context, listen: false);
       String authToken = userProvider.user.token;
 
       // Create a map of the data to send to the API
@@ -60,7 +62,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         'fullName': _fullNameController.text,
         'email': _emalController.text,
         'phone': _phoneController.text,
-        'address': _addressController.text,
+        'location': _locationController.text,
         'newPassword': _newpassController.text,
       };
 
@@ -69,7 +71,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       // Make the PUT request to your API with the authentication token in the headers
       final response = await http.put(
-        Uri.parse('$uri/api/users/updateuser/${widget.user.id}'),
+        Uri.parse('$uri/api/vendor/updatevendor/${widget.user.id}'),
         headers: {
           'Authorization': 'Bearer $authToken',
           'Content-Type': 'application/json', // Set the content type to JSON
@@ -116,9 +118,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
+  // Function to navigate to the screen for updating more information
+  void requestUpdateMoreInformation() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const UpdateMoreInformationScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
+    // ignore: unused_local_variable
+    final user = Provider.of<VendorProvider>(context).user;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -143,27 +154,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
+                // Button for requesting to update other information
+                ElevatedButton(
+                  onPressed: () {
+                    requestUpdateMoreInformation();
+                  },
+                  child: const Text('Change   Other Information'),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
-                Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: 60,
-                      backgroundImage: user.userImg != ''
-                          ? NetworkImage(user.userImg!)
-                          : const AssetImage(userImgz) as ImageProvider,
-                      // backgroundColor: fyoonaMainColor,
-                    ),
-                    Positioned(
-                      right: 0,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(CupertinoIcons.photo),
-                      ),
-                    ),
-                  ],
-                ),
+                // Stack(
+                //   children: [
+                //     CircleAvatar(
+                //       radius: 60,
+                //       backgroundImage: user.vendorlogo != ''
+                //           ? NetworkImage(user.vendorlogo!)
+                //           : const AssetImage(userImgz) as ImageProvider,
+                //       // backgroundColor: fyoonaMainColor,
+                //     ),
+                //   ],
+                // ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
@@ -174,6 +185,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
@@ -182,29 +194,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     readOnly: true,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: _phoneController,
-                    keyboardType: TextInputType.phone,
-                    decoration: const InputDecoration(
-                      labelText: "Enter Phone number",
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: _addressController,
-                    keyboardType: TextInputType.text,
-                    onChanged: (value) {
-                      address = value;
-                    },
-                    decoration: const InputDecoration(
-                      labelText: "Enter Address",
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: TextFormField(
+                //     controller: _phoneController,
+                //     keyboardType: TextInputType.phone,
+                //     decoration: const InputDecoration(
+                //       labelText: "Enter Phone number",
+                //     ),
+                //   ),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: TextFormField(
+                //     controller: _locationController,
+                //     keyboardType: TextInputType.text,
+                //     onChanged: (value) {
+                //       location = value;
+                //     },
+                //     decoration: const InputDecoration(
+                //       labelText: "Enter location",
+                //     ),
+                //   ),
+                // ),
                 // Padding(
                 //   padding: const EdgeInsets.all(8.0),
                 //   child: TextFormField(
@@ -240,12 +252,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           onTap: () async {
-            // EasyLoading.show(status: 'Updating...');
             updateUser();
-            // .whenComplete(() {
-            //   EasyLoading.dismiss();
-            //   Navigator.of(context).pop();
-            // });
           },
           child: Container(
             height: 40,

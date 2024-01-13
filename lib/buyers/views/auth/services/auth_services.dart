@@ -67,27 +67,21 @@ class AuthService {
     required String password,
     required String phonenumber,
     required String fullname,
-    File? images,
+    required File? userImg,
   }) async {
     try {
-      final cloudinary = CloudinaryPublic('dgysnizyn', 'snwj9yw0 ');
       //images
-      String imageUrls = '';
+      String? imageUrls;
 
-      // for (int i = 0; i < images.length; i++) {
-      //   CloudinaryResponse res = await cloudinary.uploadFile(
-      //     CloudinaryFile.fromFile(images[i].path, folder: fullname),
-      //   );
-      //   imageUrls.add(res.secureUrl);
-      // }
-      if (images != null) {
-        if (images != null) {
-          CloudinaryResponse res = await cloudinary.uploadFile(
-            CloudinaryFile.fromFile(images.path, folder: fullname),
-          );
-          imageUrls = res.secureUrl;
-        }
+      if (userImg != null) {
+        final cloudinary = CloudinaryPublic(iduser, idpass);
+
+        CloudinaryResponse res = await cloudinary.uploadFile(
+          CloudinaryFile.fromFile(userImg.path, folder: fullname),
+        );
+        imageUrls = res.secureUrl;
       }
+
       Buyer user = Buyer(
         id: '',
         fullname: fullname,
@@ -214,7 +208,6 @@ class AuthService {
     }
   }
 
-  
   void signInUser({
     required BuildContext context,
     required String email,
@@ -292,8 +285,6 @@ class AuthService {
       );
     }
   }
-
-
 
   //get user  data
   void getUserData(

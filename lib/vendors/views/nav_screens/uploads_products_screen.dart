@@ -69,44 +69,58 @@ class UploadsScreen extends StatelessWidget {
               ),
               onPressed: () async {
                 if (_addProductFormKey.currentState!.validate()) {
-                  EasyLoading.show(status: 'Saving please wait....');
-
-                  await productServcies
-                      .sellProduct(
-                    context: context,
-                    productName: productProvider.productData['productName'],
-                    productPrice:
-                        productProvider.productData['productPrice'].toDouble(),
-                    quantity: productProvider.productData['quantity'],
-                    category: productProvider.productData['category'],
-                    productDescription:
-                        productProvider.productData['productDescription'],
-                    imageUrList: productProvider.productData['imageUrList'],
-                    videoUrl: productProvider.productData['mediaUrl'],
-                    // if(                    scheduleDate: productProvider.productData['scheduleDate'] == null)
-                    // ShowSnakBar(Text'Selecet date')
-
-                    scheduleDate: productProvider.productData['scheduleDate'],
-                    chargeShipping:
-                        productProvider.productData['chargeShipping'],
-                    shippingFee: productProvider.productData['shippingFee'],
-                    brandName: productProvider.productData['brandName'],
-                    // sizeList: productProvider.productData['sizeList'],
-                    colorList: productProvider.productData['colorList'],
-                    vendorId: user.id,
-                    approved: productProvider.productData['approved'],
-                  )
-                      .whenComplete(() {
-                    productProvider.clearData();
-                    _addProductFormKey.currentState!.reset();
-                    EasyLoading.dismiss();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MainVendorScreen(),
+                  // EasyLoading.show(status: 'Saving please wait....');
+                  if (productProvider.productData['scheduleDate'] == null ||
+                      productProvider.productData['scheduleDate'].isEmptyll ||
+                      productProvider.productData['imageUrList'] == null ||
+                      productProvider.productData['imageUrList'].isEmpty ||
+                      productProvider.productData['mediaUrl'] == null ||
+                      productProvider.productData['mediaUrl'].isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please fill in all required fields'),
                       ),
                     );
-                  });
+                  } else {
+                    EasyLoading.show(status: 'Saving please wait....');
+
+                    await productServcies
+                        .sellProduct(
+                      context: context,
+                      productName: productProvider.productData['productName'],
+                      productPrice: productProvider.productData['productPrice']
+                          .toDouble(),
+                      quantity: productProvider.productData['quantity'],
+                      category: productProvider.productData['category'],
+                      productDescription:
+                          productProvider.productData['productDescription'],
+                      imageUrList: productProvider.productData['imageUrList'],
+                      videoUrl: productProvider.productData['mediaUrl'],
+                      // if(                    scheduleDate: productProvider.productData['scheduleDate'] == null)
+                      // ShowSnakBar(Text'Selecet date')
+
+                      scheduleDate: productProvider.productData['scheduleDate'],
+                      chargeShipping:
+                          productProvider.productData['chargeShipping'],
+                      shippingFee: productProvider.productData['shippingFee'],
+                      brandName: productProvider.productData['brandName'],
+                      // sizeList: productProvider.productData['sizeList'],
+                      colorList: productProvider.productData['colorList'],
+                      vendorId: user.id,
+                      approved: productProvider.productData['approved'],
+                    )
+                        .whenComplete(() {
+                      productProvider.clearData();
+                      _addProductFormKey.currentState!.reset();
+                      EasyLoading.dismiss();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MainVendorScreen(),
+                        ),
+                      );
+                    });
+                  }
                 }
               },
               child: const Text('Save'),

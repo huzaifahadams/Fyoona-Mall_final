@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fyoona/buyers/views/auth/services/auth_services.dart';
 import 'package:fyoona/buyers/views/auth/user_signup.dart';
 import 'package:fyoona/global_variables.dart';
@@ -118,13 +119,15 @@ class _BuyersLoginScreenState extends State<BuyersLoginScreen> {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      // EasyLoading.show(status: 'loading...');
+                  // GestureDetector
 
+                  TextButton(
+                    onPressed: () {
                       if (_signInUserFormKey.currentState!.validate()) {
+                        EasyLoading.show(status: 'logggin...');
+
                         signInUser();
-                        // EasyLoading.dismiss();
+                        EasyLoading.dismiss();
                       }
                     },
                     child: Container(

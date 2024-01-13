@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyoona/buyers/views/auth/user_login.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../const/images.dart';
 import '../../../global_variables.dart';
-import '../../utils.dart';
 import 'services/auth_services.dart';
 
 class BuyersRegisterScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
 
   bool isLoading = false;
   bool _isPasswordVisible = false;
-  List<File> images = []; //image thing
+  File? _logo; // This will store the selected logo file
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordsController = TextEditingController();
@@ -44,24 +44,31 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
     });
 
     authService.signUpUser(
-      context: context,
-      email: _emailController.text,
-      password: _passwordsController.text,
-      phonenumber: _phonenNumberController.text,
-      fullname: _fullnameController.text,
-      // userImg: images
-    );
+        context: context,
+        email: _emailController.text,
+        password: _passwordsController.text,
+        phonenumber: _phonenNumberController.text,
+        fullname: _fullnameController.text,
+        userImg: _logo);
 
     setState(() {
       isLoading = false;
     });
   }
 
-  void selctImages() async {
-    var res = await pickImages();
-    setState(() {
-      images = res;
-    });
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _selectLogo() async {
+    // ignore: no_leading_underscores_for_local_identifiers
+
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile == null) {
+    } else {
+      setState(() {
+        _logo = File(pickedFile.path);
+      });
+    }
   }
 
   @override
@@ -85,12 +92,15 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                     children: [
                       CircleAvatar(
                         radius: 64,
-                        backgroundImage: images.isNotEmpty
+                        backgroundImage: _logo != null
                             ? Image.file(
-                                images.first,
+                                File(_logo!.path),
+                                width:
+                                    100, // Set the width of the displayed image
+                                height:
+                                    100, // Set the height of the displayed image
                                 fit: BoxFit.cover,
-                                height: 200,
-                              ).image // Use the image property to get ImageProvider<Object>
+                              ).image
                             : const AssetImage(userImgz),
                       ),
                       Positioned(
@@ -98,7 +108,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                         top: 5,
                         child: IconButton(
                           onPressed: () {
-                            selctImages(); // Updated function call
+                            _selectLogo(); // Updated function call
                           },
                           icon: const Center(
                             child: Icon(
@@ -203,8 +213,8 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
+                  TextButton(
+                    onPressed: () {
                       if (_signUpFormKey.currentState!.validate()) {
                         signUpUser();
                       }

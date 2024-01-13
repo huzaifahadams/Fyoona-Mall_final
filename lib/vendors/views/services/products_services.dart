@@ -168,7 +168,6 @@ Future<List<Product>> fetchAllProductsvendor2(BuildContext context) async {
 }
 
 Future<List<Product>> fetchAllProductsall(BuildContext context) async {
-  // final userProvider = Provider.of<VendorProvider>(context, listen: false);
   final user = Provider.of<VendorProvider>(context).user;
   List<Product> productList = [];
   try {
@@ -191,7 +190,7 @@ Future<List<Product>> fetchAllProductsall(BuildContext context) async {
             jsonEncode(productsJson[i]),
           );
 
-          // Filter products based on the vendorId
+          // Filter products based on the approved
           if (product.approved == true) {
             productList.add(product);
           }

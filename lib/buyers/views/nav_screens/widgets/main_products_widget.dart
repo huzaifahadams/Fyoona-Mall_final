@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../../const/colors.dart';
 import '../../../../global_variables.dart';
 import '../../../../vendors/models/product.dart';
 import '../../../../vendors/views/services/products_services.dart';
@@ -16,7 +17,7 @@ class MainAllProducts extends StatelessWidget {
       future: fetchAllProductsall(context),
       builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
         if (snapshot.hasError) {
-          return const Text('Something went wrong');
+          return const Center(child: Text('Something went wrong'));
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -69,7 +70,7 @@ class MainAllProducts extends StatelessWidget {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: videoBoxDecoration,
                     borderRadius: BorderRadius.circular(8),
                     boxShadow: [
                       BoxShadow(
@@ -85,7 +86,7 @@ class MainAllProducts extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AspectRatio(
-                          aspectRatio: 17 /
+                          aspectRatio: 16 /
                               9, // Use a 16:9 aspect ratio for a rectangle shape
                           child: Chewie(
                             controller: chewieController,
@@ -95,6 +96,7 @@ class MainAllProducts extends StatelessWidget {
                           productData.productName,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
+                              color: productNameColor,
                               fontSize: 18,
                               letterSpacing: 4),
                         ),

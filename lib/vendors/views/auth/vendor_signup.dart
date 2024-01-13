@@ -1,8 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 
-import 'dart:typed_data';
+import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyoona/vendors/views/auth/services/vendor_auth_services.dart';
 import 'package:fyoona/vendors/views/auth/vendor_login.dart';
@@ -20,8 +19,7 @@ class _VendorSignupScreenState extends State<VendorSignupScreen> {
 
   final _signupFormKey = GlobalKey<FormState>(); //form for signup
 
-  // Uint8List? image;
-  Uint8List? images;
+  File? _logo; // This will store the selected logo file
 
   bool isLoading = false;
   bool _isPasswordVisible = false;
@@ -59,7 +57,7 @@ class _VendorSignupScreenState extends State<VendorSignupScreen> {
       phonenumber: _phonenNumberController.text,
       fullname: _fullnameController.text,
       location: _locationController.text,
-      images: images,
+      images: _logo,
       businessname: _bussinessNameController.text,
     );
 
@@ -68,12 +66,19 @@ class _VendorSignupScreenState extends State<VendorSignupScreen> {
     });
   }
 
-  Future<void> selectGalleryImage() async {
-    Uint8List? im = await authService.pickProfileImage(ImageSource.gallery);
+  final ImagePicker _picker = ImagePicker();
 
-    setState(() {
-      images = im;
-    });
+  Future<void> _selectLogo() async {
+    // ignore: no_leading_underscores_for_local_identifiers
+
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile == null) {
+    } else {
+      setState(() {
+        _logo = File(pickedFile.path);
+      });
+    }
   }
 
   @override
@@ -97,11 +102,17 @@ class _VendorSignupScreenState extends State<VendorSignupScreen> {
                     children: [
                       CircleAvatar(
                         radius: 64,
-                        backgroundImage: images != null
-                            ? MemoryImage(images!)
-                            : const AssetImage('assets/user.png')
-                                as ImageProvider,
-                        child: images == null
+                        backgroundImage: _logo != null
+                            ? Image.file(
+                                File(_logo!.path),
+                                width:
+                                    100, // Set the width of the displayed image
+                                height:
+                                    100, // Set the height of the displayed image
+                                fit: BoxFit.cover,
+                              ).image
+                            : null,
+                        child: _logo == null
                             ? const Center(
                                 child: Text(
                                   'ENTER LOGO',
@@ -117,12 +128,14 @@ class _VendorSignupScreenState extends State<VendorSignupScreen> {
                         top: 5,
                         child: IconButton(
                           onPressed: () {
-                            selectGalleryImage(); // Updated function call
+                            _selectLogo(); // Updated function call
                           },
                           icon: const Center(
-                            child: Icon(
-                              CupertinoIcons.photo,
-                              color: Colors.black,
+                            child: Center(
+                              child: Icon(
+                                Icons.image,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                         ),

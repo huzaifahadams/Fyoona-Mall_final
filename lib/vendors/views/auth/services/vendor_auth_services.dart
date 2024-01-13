@@ -5,14 +5,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloudinary_public/cloudinary_public.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fyoona/vendors/models/vendor.dart';
 import 'package:fyoona/vendors/providers/vendor_provider.dart';
 import 'package:fyoona/vendors/views/auth/vendor_login.dart';
 import 'package:fyoona/vendors/views/auth/vendor_verification_screen.dart';
 import 'package:fyoona/vendors/views/landing_screen.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -54,29 +52,8 @@ class AuthServiceVendor {
     }
   }
 
-  Future<Uint8List?> pickProfileImage(ImageSource source) async {
-    final ImagePicker imagePicker = ImagePicker();
-    XFile? file = await imagePicker.pickImage(source: source);
-    if (file != null) {
-      return await file.readAsBytes();
-    } else {
-      return null;
-    }
-  }
 
-  Future<String?> uploadImageToCloudinary(
-      Uint8List images, String fullname) async {
-    try {
-      final cloudinary = CloudinaryPublic(iduser, idpass);
-      CloudinaryResponse response = await cloudinary.uploadFile(
-        CloudinaryFile.fromFile(images.toString(), folder: fullname),
-      );
-      return response.secureUrl;
-    } catch (e) {
-      print('Error uploading image to Cloudinary: $e');
-      return null;
-    }
-  }
+ 
 
 //signup vendor
   Future<void> signUpVendor({
@@ -87,16 +64,20 @@ class AuthServiceVendor {
     required String fullname,
     required String location,
     required String businessname,
-    Uint8List? images,
+    required File? images,
   }) async {
     try {
       String? imageUrl;
+ if (images != null) {
+                  final cloudinary = CloudinaryPublic(iduser, idpass);
 
-      // Check if an image is selected
-      if (images != null) {
-        // Upload the image to Cloudinary and get the URL
-        imageUrl = await uploadImageToCloudinary(images, fullname);
-      }
+                  CloudinaryResponse res = await cloudinary.uploadFile(
+                    CloudinaryFile.fromFile(images.path,
+                        folder: businessname),
+                  );
+                  imageUrl = res.secureUrl;
+                }
+     
 
       Vendor user = Vendor(
         id: '',

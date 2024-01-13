@@ -23,7 +23,7 @@ class _MainVendorScreenState extends State<MainVendorScreen> {
     UploadsScreen(),
     const EditScreen(),
     const VendorOrdersScreen(),
-    LogoutVendorScreen(),
+    const LogoutVendorScreen(),
   ];
   @override
   Widget build(BuildContext context) {

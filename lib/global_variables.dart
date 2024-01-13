@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-String uri = 'http://192.168.16.19:8000'; //good
-// String uri = 'https://fyoona-64126387e533.herokuapp.com';
+// String uri = 'http://192.168.16.19:8000'; //good
+String uri = 'https://fyoona-64126387e533.herokuapp.com';
 
 // String uri = 'https://fyoonaserver.onrender.com'; //bad
 

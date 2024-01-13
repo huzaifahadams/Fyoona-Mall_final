@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fyoona/const/images.dart';
 import 'package:fyoona/global_variables.dart';
 import 'package:fyoona/vendors/providers/vendor_provider.dart';
 import 'package:provider/provider.dart';
@@ -28,8 +29,8 @@ class EarningScreen extends StatelessWidget {
         }
 
         if (!snapshot.hasData || snapshot.data!.statusCode != 200) {
-          return const Center(child: Text("Failed to load data"));
-          // return const CircularProgressIndicator();
+          // return const Center(child: Text("Failed to load data"));
+          return const CircularProgressIndicator();
         }
 
         // Parse the response JSON
@@ -42,8 +43,11 @@ class EarningScreen extends StatelessWidget {
             title: Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: NetworkImage(user.vendorlogo.toString()),
-                ),
+                    backgroundImage: user.vendorlogo != null &&
+                            user.vendorlogo != 'null' &&
+                            user.vendorlogo != ''
+                        ? NetworkImage(user.vendorlogo.toString())
+                        : const AssetImage(userImgz) as ImageProvider),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(

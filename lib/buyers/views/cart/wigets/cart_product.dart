@@ -179,18 +179,28 @@ class _CartProductState extends State<CartProduct> {
                     ),
                   ),
                 ),
-                InkWell(
-                  onTap: () => increseQnty(productData),
-                  child: Container(
-                    width: 35,
-                    height: 32,
-                    alignment: Alignment.center,
-                    child: const Icon(
-                      Icons.add,
-                      size: 18,
-                    ),
-                  ),
-                ),
+                (quantity >= productData.quantity)
+                    ? Container(
+                        width: 35,
+                        height: 32,
+                        alignment: Alignment.center,
+                        child: const Icon(
+                          Icons.add,
+                          size: 18,
+                        ),
+                      )
+                    : InkWell(
+                        onTap: () => increseQnty(productData),
+                        child: Container(
+                          width: 35,
+                          height: 32,
+                          alignment: Alignment.center,
+                          child: const Icon(
+                            Icons.add,
+                            size: 18,
+                          ),
+                        ),
+                      ),
               ]),
             ),
           ]),

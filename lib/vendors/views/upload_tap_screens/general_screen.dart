@@ -32,7 +32,7 @@ class _GeneralScreenState extends State<GeneralScreen>
             .map((dynamic item) => item['categoryName']?.toString())
             .whereType<String>()
             .toList();
-      
+
         setState(() {
           _categories.clear();
           _categories.addAll(categories);
@@ -63,7 +63,6 @@ class _GeneralScreenState extends State<GeneralScreen>
     final ProdcutProvider _productProvider =
         Provider.of<ProdcutProvider>(context);
 
-   
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -183,7 +182,7 @@ class _GeneralScreenState extends State<GeneralScreen>
                     },
                     child: const Text(
                       'Schedule',
-                      style: TextStyle(),
+                      style: TextStyle(fontSize: 23),
                     ),
                   ),
                   if (_productProvider.productData['scheduleDate'] != null)

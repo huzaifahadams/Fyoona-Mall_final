@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../const/images.dart';
 import '../../../global_variables.dart';
 import '../../inner_screens/all_products_screen_cart.dart';
 import '../../utils.dart';
@@ -30,10 +31,7 @@ class CategoryScreenState extends State<CategoryScreen> {
         // Handle error if needed
         throw Exception('Failed to load categories');
       }
-    }
-   
-
-    on SocketException {
+    } on SocketException {
       showSnackBar(context, "Please check your internet connection.");
     } on TimeoutException {
       showSnackBar(context, "The request timed out. Please try again later.");
@@ -70,17 +68,16 @@ class CategoryScreenState extends State<CategoryScreen> {
         builder: (BuildContext context,
             AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
           if (snapshot.hasError) {
-            return const Center(child: Text('Something went wrong'));
+            return const Image(image: AssetImage(errorzimg));
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-                child:
-                    CircularProgressIndicator(color: fyoonaMainColor));
+                child: CircularProgressIndicator(color: fyoonaMainColor));
           }
 
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No categories available'));
+            return const Center(child: Image(image: AssetImage(errorzimg)));
           }
 
           return ListView.builder(

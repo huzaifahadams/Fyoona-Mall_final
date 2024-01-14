@@ -3,6 +3,7 @@ import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../const/colors.dart';
+import '../../../../const/images.dart';
 import '../../../../global_variables.dart';
 import '../../../../vendors/models/product.dart';
 import '../../../../vendors/views/services/products_services.dart';
@@ -17,9 +18,13 @@ class MainAllProducts extends StatelessWidget {
       future: fetchAllProductsall(context),
       builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
         if (snapshot.hasError) {
-          return const Center(child: Text('Something went wrong'));
+          // return const Center(child: Text('Something went wrong'));
+          return const Center(child: Image(image: AssetImage(errorzimg)));
         }
 
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Image(image: AssetImage(errorzimg)));
+        }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return LinearProgressIndicator(
             color: fyoonaMainColor,

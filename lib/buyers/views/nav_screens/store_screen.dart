@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fyoona/buyers/views/productDetails/store_product_details.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../const/images.dart';
 import '../../../global_variables.dart';
 import '../../utils.dart';
 
@@ -70,11 +71,12 @@ class StoreScreenState extends State<StoreScreen> {
               if (snapshot.hasError) {
                 return const Center(child: Text('Something went wrong'));
               }
-
+              if (snapshot.hasError) {
+                return const Image(image: AssetImage(errorzimg));
+              }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
-                    child: CircularProgressIndicator(
-                        color: fyoonaMainColor));
+                    child: CircularProgressIndicator(color: fyoonaMainColor));
               }
 
               if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -87,7 +89,8 @@ class StoreScreenState extends State<StoreScreen> {
                   final storeData = snapshot.data![index];
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
                         return StoreProductsScreen(
                           storeData: storeData,
                         );

@@ -136,6 +136,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                         // No need to assign to email here
                       },
                       decoration: const InputDecoration(
+                        icon: Icon(Icons.email),
                         labelText: 'Enter Email',
                       ),
                     ),
@@ -156,6 +157,7 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                         // No need to setState for fullname here
                       },
                       decoration: const InputDecoration(
+                        icon: Icon(Icons.person),
                         labelText: 'Enter Full name',
                       ),
                     ),
@@ -176,6 +178,8 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                         // No need to setState for phoneNumber here
                       },
                       decoration: const InputDecoration(
+                                                icon: Icon(Icons.phone),
+
                         labelText: 'Enter Phone Number',
                       ),
                     ),
@@ -197,6 +201,8 @@ class _BuyersRegisterScreenState extends State<BuyersRegisterScreen> {
                       },
                       decoration: InputDecoration(
                         labelText: 'Password',
+                                                icon: const Icon(Icons.password),
+
                         suffixIcon: IconButton(
                           color: Colors.black,
                           onPressed: () {

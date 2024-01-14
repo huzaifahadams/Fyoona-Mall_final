@@ -65,6 +65,9 @@ class _BuyersLoginScreenState extends State<BuyersLoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
                   const Text(
                     'Login ',
                     style: TextStyle(
@@ -72,6 +75,7 @@ class _BuyersLoginScreenState extends State<BuyersLoginScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+
                   Padding(
                     padding: const EdgeInsets.all(13.0),
                     child: TextFormField(
@@ -85,6 +89,7 @@ class _BuyersLoginScreenState extends State<BuyersLoginScreen> {
                         }
                       },
                       decoration: const InputDecoration(
+                        icon: Icon(Icons.email),
                         labelText: 'Enter Email',
                       ),
                     ),
@@ -102,6 +107,7 @@ class _BuyersLoginScreenState extends State<BuyersLoginScreen> {
                         }
                       },
                       decoration: InputDecoration(
+                        icon: const Icon(Icons.password),
                         labelText: 'Password',
                         suffixIcon: IconButton(
                           color: Colors.black,

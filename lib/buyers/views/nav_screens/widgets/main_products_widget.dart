@@ -70,7 +70,7 @@ class MainAllProducts extends StatelessWidget {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                   decoration: BoxDecoration(
-                    color: videoBoxDecoration,
+                    color: videoBoxDecorationz,
                     borderRadius: BorderRadius.circular(8),
                     boxShadow: [
                       BoxShadow(

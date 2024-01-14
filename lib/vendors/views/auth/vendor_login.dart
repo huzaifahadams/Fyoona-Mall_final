@@ -4,6 +4,8 @@ import 'package:fyoona/vendors/views/auth/forget_pass_vendor.dart';
 import 'package:fyoona/vendors/views/auth/services/vendor_auth_services.dart';
 import 'package:fyoona/vendors/views/auth/vendor_signup.dart';
 
+import '../../../global_variables.dart';
+
 class VendorLoginScreen extends StatefulWidget {
   const VendorLoginScreen({
     super.key,
@@ -62,7 +64,7 @@ class _VendorLoginScreenState extends State<VendorLoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Login ',
+                    'Seller Login ',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -81,6 +83,7 @@ class _VendorLoginScreenState extends State<VendorLoginScreen> {
                         }
                       },
                       decoration: const InputDecoration(
+                        icon: Icon(Icons.email),
                         labelText: 'Enter Email',
                       ),
                     ),
@@ -98,6 +101,7 @@ class _VendorLoginScreenState extends State<VendorLoginScreen> {
                         }
                       },
                       decoration: InputDecoration(
+                        icon: const Icon(Icons.password),
                         labelText: 'Password',
                         suffixIcon: IconButton(
                           color: Colors.black,
@@ -115,8 +119,9 @@ class _VendorLoginScreenState extends State<VendorLoginScreen> {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
+                  // GestureDetector
+                  TextButton(
+                    onPressed: () {
                       if (_signInUserFormKey.currentState!.validate()) {
                         signInUser();
                       }
@@ -125,7 +130,7 @@ class _VendorLoginScreenState extends State<VendorLoginScreen> {
                       width: MediaQuery.of(context).size.width - 40,
                       height: 50,
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 245, 23, 164),
+                          color: fyoonaMainColor,
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
                           child: _isLoading
@@ -133,7 +138,7 @@ class _VendorLoginScreenState extends State<VendorLoginScreen> {
                                   color: Colors.white,
                                 )
                               : const Text(
-                                  'Login',
+                                  ' Login',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 19,

@@ -12,4 +12,5 @@ const Color lightGolden = Color(0xffFEEAD1);
 Color bgsplash = lightGolden;
 
 const Color productNameColor = Colors.white;
-Color videoBoxDecoration =  Colors.black;
+Color videoBoxDecorationz = Colors.white;
+// Color mainColor = Colors.yellow.shade900;
